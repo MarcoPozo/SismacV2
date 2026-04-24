@@ -1,0 +1,79 @@
+/* window-open */
+@keyframes windowOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* window-close */
+@keyframes windowClose {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+/* window-minimize */
+@keyframes windowMinimize {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.7) translateY(60px);
+  }
+}
+
+/* window-restore */
+@keyframes windowRestore {
+  from {
+    opacity: 0;
+    transform: scale(0.7) translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* taskbar-icon-bounce */
+@keyframes taskbarIconBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.85); }
+  70%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* desktop-icon-hover */
+@keyframes desktopIconHover {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+
+/* fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* slide-up */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

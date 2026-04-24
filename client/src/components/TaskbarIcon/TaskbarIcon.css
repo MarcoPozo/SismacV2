@@ -1,0 +1,61 @@
+.taskbar-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--sm-icon-btn-size);
+  height: var(--sm-icon-btn-size);
+  border-radius: var(--sm-radius-xs);
+  background: transparent;
+  border: none;
+  cursor: default;
+  transition: background var(--sm-dur-fast) var(--sm-ease);
+  padding-block: var(--sm-space-2);
+}
+
+.taskbar-icon:hover {
+  background: var(--sm-hover-bg);
+}
+
+.taskbar-icon:active .taskbar-icon__img {
+  animation: taskbarIconBounce var(--sm-dur) var(--sm-ease) forwards;
+}
+
+.taskbar-icon--open {
+  background: var(--sm-active-bg);
+}
+
+.taskbar-icon--focused {
+  background: var(--sm-selected-bg);
+}
+
+.taskbar-icon__img {
+  width: var(--sm-icon-taskbar);
+  height: var(--sm-icon-taskbar);
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform var(--sm-dur-fast) var(--sm-ease);
+}
+
+.taskbar-icon:active .taskbar-icon__img {
+  transform: scale(0.9);
+}
+
+.taskbar-icon__dot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--sm-dot-size);
+  height: var(--sm-dot-size);
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-text-soft);
+  transition: width var(--sm-dur-fast) var(--sm-ease),
+              background var(--sm-dur-fast) var(--sm-ease);
+}
+
+.taskbar-icon--focused .taskbar-icon__dot {
+  width: var(--sm-dot-size-active);
+  background: var(--sm-brand);
+}

@@ -1,0 +1,107 @@
+.search-panel {
+  position: fixed;
+  bottom: calc(var(--sm-taskbar-h) + var(--sm-space-2));
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: var(--sm-start-menu-w);
+  display: flex;
+  flex-direction: column;
+  background: var(--sm-glass-bg-strong);
+  border: 1px solid var(--sm-glass-border);
+  border-radius: var(--sm-radius-lg);
+  backdrop-filter: var(--sm-glass-blur);
+  -webkit-backdrop-filter: var(--sm-glass-blur);
+  box-shadow: var(--sm-shadow-lg);
+  z-index: var(--sm-z-panel);
+  overflow: hidden;
+  animation: slideUp var(--sm-dur-slow) var(--sm-ease) forwards;
+}
+
+.search-panel__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-3);
+  margin: var(--sm-space-5) var(--sm-space-5) 0;
+  padding: 0 var(--sm-space-4);
+  height: 44px;
+  background: var(--sm-surface-3);
+  border: 1px solid var(--sm-border-strong);
+  border-radius: var(--sm-radius-pill);
+  transition: border-color var(--sm-dur-fast) var(--sm-ease);
+}
+
+.search-panel__bar:focus-within {
+  border-color: var(--sm-brand);
+}
+
+.search-panel__bar-icon {
+  font-size: var(--sm-text-lg);
+  color: var(--sm-text-muted);
+  flex-shrink: 0;
+}
+
+.search-panel__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--sm-text);
+  font-size: var(--sm-text-md);
+  user-select: text;
+}
+
+.search-panel__input::placeholder {
+  color: var(--sm-text-muted);
+}
+
+.search-panel__tabs {
+  display: flex;
+  gap: var(--sm-space-1);
+  padding: var(--sm-space-3) var(--sm-space-5) 0;
+  border-bottom: 1px solid var(--sm-border);
+}
+
+.search-panel__tab {
+  padding: var(--sm-space-2) var(--sm-space-3);
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
+  border-radius: var(--sm-radius-sm) var(--sm-radius-sm) 0 0;
+  border-bottom: 2px solid transparent;
+  transition: color var(--sm-dur-fast) var(--sm-ease),
+              border-color var(--sm-dur-fast) var(--sm-ease);
+}
+
+.search-panel__tab:hover {
+  color: var(--sm-text-soft);
+}
+
+.search-panel__tab--active {
+  color: var(--sm-text);
+  border-bottom-color: var(--sm-brand);
+}
+
+.search-panel__section {
+  padding: var(--sm-space-4) var(--sm-space-5);
+}
+
+.search-panel__section + .search-panel__section {
+  border-top: 1px solid var(--sm-border);
+}
+
+.search-panel__section-title {
+  display: block;
+  font-size: var(--sm-text-sm);
+  font-weight: 600;
+  color: var(--sm-text);
+  margin-bottom: var(--sm-space-3);
+}
+
+.search-panel__apps {
+  min-height: 96px;
+}
+
+.search-panel__quick {
+  min-height: 80px;
+  padding-bottom: var(--sm-space-2);
+}

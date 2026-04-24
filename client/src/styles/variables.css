@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* Tipografía */
+  --sm-font-title: "Bebas Neue", sans-serif;
+  --sm-font-body: "Plus Jakarta Sans", sans-serif;
+
+  --sm-text-2xs: 9px;
+  --sm-text-xs: 11px;
+  --sm-text-sm: 13px;
+  --sm-text-md: 14px;
+  --sm-text-lg: 16px;
+  --sm-text-xl: 18px;
+  --sm-text-2xl: 24px;
+  --sm-text-3xl: 30px;
+  --sm-text-4xl: 36px;
+
+  /* Brand Sismac */
+  --sm-brand: #dc1f26;
+  --sm-brand-hover: #b81920;
+  --sm-brand-active: #9e1c20;
+  --sm-brand-bg: rgba(220, 31, 38, 0.12);
+  --sm-brand-border: rgba(220, 31, 38, 0.3);
+
+  /* Superficies OS — Dark */
+  --sm-surface: #1a1b22;
+  --sm-surface-2: #1f2029;
+  --sm-surface-3: #252632;
+  --sm-surface-hover: #2a2b3a;
+
+  /* Texto */
+  --sm-text: #f0f0f5;
+  --sm-text-soft: #b8b8cc;
+  --sm-text-muted: #70708a;
+  --sm-text-invert: #ffffff;
+
+  /* Bordes */
+  --sm-border: rgba(255, 255, 255, 0.08);
+  --sm-border-strong: rgba(255, 255, 255, 0.15);
+  --sm-border-soft: rgba(255, 255, 255, 0.04);
+
+  /* Estados interactivos sobre fondos oscuros */
+  --sm-hover-bg: rgba(255, 255, 255, 0.1);
+  --sm-hover-bg-subtle: rgba(255, 255, 255, 0.08);
+  --sm-hover-border: rgba(255, 255, 255, 0.12);
+  --sm-active-bg: rgba(255, 255, 255, 0.06);
+  --sm-selected-bg: rgba(255, 255, 255, 0.12);
+
+  /* Overlays */
+  --sm-overlay: rgba(0, 0, 0, 0.6);
+  --sm-overlay-soft: rgba(0, 0, 0, 0.35);
+  --sm-overlay-subtle: rgba(0, 0, 0, 0.2);
+
+  /* Taskbar */
+  --sm-taskbar-bg: rgba(15, 15, 20, 0.82);
+  --sm-taskbar-border: rgba(255, 255, 255, 0.08);
+  --sm-taskbar-h: 48px;
+
+  /* Ventana */
+  --sm-window-bg: rgba(28, 28, 36, 0.96);
+  --sm-window-titlebar: rgba(20, 20, 28, 0.98);
+  --sm-window-border: rgba(255, 255, 255, 0.1);
+  --sm-window-radius: 8px;
+  --sm-window-min-w: 320px;
+  --sm-window-min-h: 200px;
+  --sm-window-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --sm-window-shadow-focused: 0 12px 48px rgba(0, 0, 0, 0.65),
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* Controles de ventana */
+  --sm-win-close: #dc1f26;
+  --sm-win-close-hover: #ff3b3b;
+  --sm-win-minimize: #f5a623;
+  --sm-win-maximize: #27c932;
+  --sm-win-icon-size: 16px;
+  --sm-win-icon-opacity: 0.85;
+  --sm-win-control-w: 44px;
+
+  /* Glassmorphism / Acrylic */
+  --sm-glass-bg: rgba(28, 28, 40, 0.75);
+  --sm-glass-bg-strong: rgba(20, 20, 30, 0.88);
+  --sm-glass-border: rgba(255, 255, 255, 0.1);
+  --sm-glass-blur: blur(20px);
+  --sm-glass-blur-sm: blur(8px);
+  --sm-glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* Sombras */
+  --sm-shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --sm-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --sm-shadow-md: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --sm-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  /* Estados del sistema */
+  --sm-success: #22c55e;
+  --sm-warning: #f59e0b;
+  --sm-danger: #ef4444;
+  --sm-info: #38bdf8;
+
+  --sm-success-bg: rgba(34, 197, 94, 0.12);
+  --sm-warning-bg: rgba(245, 158, 11, 0.12);
+  --sm-danger-bg: rgba(239, 68, 68, 0.12);
+  --sm-info-bg: rgba(56, 189, 248, 0.12);
+
+  /* Radius */
+  --sm-radius-xs: 4px;
+  --sm-radius-sm: 6px;
+  --sm-radius-md: 10px;
+  --sm-radius-lg: 14px;
+  --sm-radius-xl: 20px;
+  --sm-radius-pill: 999px;
+
+  /* Espaciado */
+  --sm-space-1: 4px;
+  --sm-space-2: 8px;
+  --sm-space-3: 12px;
+  --sm-space-4: 16px;
+  --sm-space-5: 20px;
+  --sm-space-6: 24px;
+  --sm-space-8: 32px;
+  --sm-space-10: 40px;
+  --sm-space-11: 44px;
+  --sm-space-12: 48px;
+
+  /* Íconos */
+  --sm-icon-desktop: 48px;
+  --sm-icon-taskbar: 28px;
+  --sm-icon-btn-size: 38px;
+  --sm-desktop-icon-w: 80px;
+  --sm-desktop-icon-label-h: 26px;
+
+  /* Texto de escritorio — sombra para legibilidad sobre wallpaper */
+  --sm-text-shadow-desktop: 0 1px 4px rgba(0, 0, 0, 0.85),
+    0 0 8px rgba(0, 0, 0, 0.5);
+
+  /* Dot indicador de taskbar */
+  --sm-dot-size: 4px;
+  --sm-dot-size-active: 16px;
+
+  /* Motion */
+  --sm-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --sm-dur-fast: 110ms;
+  --sm-dur: 180ms;
+  --sm-dur-slow: 280ms;
+
+  /* Layout OS */
+  --sm-titlebar-h: 32px;
+  --sm-settings-sidebar-w: 220px;
+
+  /* Z-index layers */
+  --sm-z-windows: 100;
+  --sm-z-taskbar: 9000;
+  --sm-z-panel: 9100;
+
+  /* Paneles */
+  --sm-start-menu-w: 680px;
+}

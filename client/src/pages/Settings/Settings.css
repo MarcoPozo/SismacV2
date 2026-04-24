@@ -1,0 +1,97 @@
+.settings {
+  display: flex;
+  height: 100%;
+  background: var(--sm-surface);
+  color: var(--sm-text);
+  font-family: var(--sm-font-body);
+}
+
+.settings__sidebar {
+  width: var(--sm-settings-sidebar-w);
+  min-width: var(--sm-settings-sidebar-w);
+  background: var(--sm-surface-2);
+  border-right: 1px solid var(--sm-border);
+  padding: var(--sm-space-4) var(--sm-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm-space-1);
+}
+
+.settings__sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-3);
+  width: 100%;
+  padding: var(--sm-space-2) var(--sm-space-3);
+  border-radius: var(--sm-radius-sm);
+  background: transparent;
+  border: none;
+  color: var(--sm-text-soft);
+  font-size: var(--sm-text-sm);
+  font-family: var(--sm-font-body);
+  text-align: left;
+  cursor: default;
+  transition: background var(--sm-dur-fast) var(--sm-ease),
+              color var(--sm-dur-fast) var(--sm-ease);
+}
+
+.settings__sidebar-item:hover {
+  background: var(--sm-surface-hover);
+  color: var(--sm-text);
+}
+
+.settings__sidebar-item--active {
+  background: var(--sm-brand-bg);
+  color: var(--sm-brand);
+  font-weight: 500;
+}
+
+.settings__sidebar-item--active:hover {
+  background: var(--sm-brand-bg);
+  color: var(--sm-brand);
+}
+
+.settings__sidebar-icon {
+  font-size: var(--sm-text-xl);
+  flex-shrink: 0;
+}
+
+.settings__content {
+  flex: 1;
+  padding: var(--sm-space-8);
+  overflow-y: auto;
+}
+
+.settings__section-title {
+  font-family: var(--sm-font-title);
+  font-size: var(--sm-text-3xl);
+  color: var(--sm-text);
+  margin-bottom: var(--sm-space-2);
+}
+
+.settings__section-desc {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
+  margin-bottom: var(--sm-space-8);
+}
+
+.settings__card {
+  background: var(--sm-surface-2);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--sm-radius-md);
+  padding: var(--sm-space-5) var(--sm-space-6);
+  margin-bottom: var(--sm-space-4);
+}
+
+.settings__card-label {
+  display: block;
+  font-size: var(--sm-text-md);
+  font-weight: 500;
+  color: var(--sm-text);
+  margin-bottom: var(--sm-space-2);
+}
+
+.settings__card-hint {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
+}

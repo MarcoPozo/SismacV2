@@ -1,0 +1,103 @@
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--sm-taskbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sm-taskbar-bg);
+  border-top: 1px solid var(--sm-taskbar-border);
+  backdrop-filter: var(--sm-glass-blur);
+  -webkit-backdrop-filter: var(--sm-glass-blur);
+  z-index: var(--sm-z-taskbar);
+}
+
+.taskbar__center {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-1);
+}
+
+.taskbar__start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sm-icon-btn-size);
+  height: var(--sm-icon-btn-size);
+  border-radius: var(--sm-radius-sm);
+  background: transparent;
+  border: none;
+  transition: background var(--sm-dur-fast) var(--sm-ease);
+  cursor: default;
+}
+
+.taskbar__start:hover {
+  background: var(--sm-hover-bg);
+}
+
+.taskbar__start--active {
+  background: var(--sm-selected-bg);
+}
+
+.taskbar__search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sm-icon-btn-size);
+  height: var(--sm-icon-btn-size);
+  border-radius: var(--sm-radius-xs);
+  background: transparent;
+  border: none;
+  transition: background var(--sm-dur-fast) var(--sm-ease);
+  cursor: default;
+}
+
+.taskbar__search:hover {
+  background: var(--sm-hover-bg);
+}
+
+.taskbar__search--active {
+  background: var(--sm-selected-bg);
+}
+
+.taskbar__search-icon {
+  width: var(--sm-icon-taskbar);
+  height: var(--sm-icon-taskbar);
+  object-fit: contain;
+}
+
+.taskbar__start-logo {
+  width: var(--sm-icon-taskbar);
+  height: var(--sm-icon-taskbar);
+  object-fit: contain;
+}
+
+.taskbar__tray {
+  position: absolute;
+  right: var(--sm-space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-3);
+}
+
+.taskbar__clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  cursor: default;
+}
+
+.taskbar__clock-time {
+  font-size: var(--sm-text-sm);
+  font-weight: 500;
+  color: var(--sm-text);
+  line-height: 1.2;
+}
+
+.taskbar__clock-date {
+  font-size: var(--sm-text-xs);
+  color: var(--sm-text-soft);
+  line-height: 1.2;
+}
