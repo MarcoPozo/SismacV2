@@ -1,0 +1,9 @@
+.snap-preview {
+  position: fixed;
+  background: var(--sm-brand-bg);
+  border: 2px solid var(--sm-brand-border);
+  border-radius: var(--sm-radius-md);
+  z-index: var(--sm-z-snap-preview);
+  pointer-events: none;
+  animation: fadeIn var(--sm-dur-fast) var(--sm-ease) forwards;
+}

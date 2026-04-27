@@ -1,7 +1,7 @@
 import './TaskbarIcon.css';
 import useWindowStore from '../../store/windowStore';
 
-const TaskbarIcon = ({ appId, title, icon, onAction, isActive, panelTrigger }) => {
+const TaskbarIcon = ({ appId, title, icon, reactIcon, onAction, isActive, panelTrigger }) => {
   const windows = useWindowStore((s) => s.windows);
   const openWindow = useWindowStore((s) => s.openWindow);
   const focusWindow = useWindowStore((s) => s.focusWindow);
@@ -38,12 +38,10 @@ const TaskbarIcon = ({ appId, title, icon, onAction, isActive, panelTrigger }) =
       title={title}
       data-panel-trigger={panelTrigger}
     >
-      <img
-        className="taskbar-icon__img"
-        src={icon}
-        alt={title}
-        draggable={false}
-      />
+      {reactIcon
+        ? <span className="taskbar-icon__react-icon">{reactIcon}</span>
+        : <img className="taskbar-icon__img" src={icon} alt={title} draggable={false} />
+      }
       {!isPanelMode && isOpen && <span className="taskbar-icon__dot" />}
     </button>
   );

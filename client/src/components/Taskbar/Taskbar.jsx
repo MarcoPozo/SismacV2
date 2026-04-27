@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
-import './Taskbar.css';
-import TaskbarIcon from '../TaskbarIcon/TaskbarIcon';
-import StartMenu from '../StartMenu/StartMenu';
-import SearchPanel from '../SearchPanel/SearchPanel';
-import appsRegistry from '../../config/appsRegistry';
-import usePanelStore from '../../store/panelStore';
+import { useState, useEffect } from "react";
+import { IoNotificationsOutline } from "react-icons/io5";
+import "./Taskbar.css";
+import TaskbarIcon from "../TaskbarIcon/TaskbarIcon";
+import StartMenu from "../StartMenu/StartMenu";
+import SearchPanel from "../SearchPanel/SearchPanel";
+import NotificationPanel from "../NotificationPanel/NotificationPanel";
+import appsRegistry from "../../config/appsRegistry";
+import usePanelStore from "../../store/panelStore";
+
+const BELL_ICON = <IoNotificationsOutline />;
 
 const Taskbar = () => {
-  const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
 
   const activePanel = usePanelStore((s) => s.activePanel);
   const togglePanel = usePanelStore((s) => s.togglePanel);
@@ -18,15 +22,15 @@ const Taskbar = () => {
   useEffect(() => {
     const handleUpdateClock = () => {
       const now = new Date();
-      const h = now.getHours().toString().padStart(2, '0');
-      const m = now.getMinutes().toString().padStart(2, '0');
+      const h = now.getHours().toString().padStart(2, "0");
+      const m = now.getMinutes().toString().padStart(2, "0");
       setTime(`${h}:${m}`);
       setDate(
-        now.toLocaleDateString('es-EC', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-        })
+        now.toLocaleDateString("es-EC", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }),
       );
     };
     handleUpdateClock();
@@ -36,23 +40,24 @@ const Taskbar = () => {
 
   return (
     <>
-      {activePanel === 'start' && <StartMenu />}
-      {activePanel === 'search' && <SearchPanel />}
+      {activePanel === "start" && <StartMenu />}
+      {activePanel === "search" && <SearchPanel />}
+      {activePanel === "notifications" && <NotificationPanel />}
 
       <nav className="taskbar">
         <div className="taskbar__center">
           <TaskbarIcon
             title="Inicio"
             icon="/images/icons/icon-sismac.png"
-            onAction={() => togglePanel('start')}
-            isActive={activePanel === 'start'}
+            onAction={() => togglePanel("start")}
+            isActive={activePanel === "start"}
             panelTrigger="start"
           />
           <TaskbarIcon
             title="Buscar"
             icon="/images/icons/icon-search.png"
-            onAction={() => togglePanel('search')}
-            isActive={activePanel === 'search'}
+            onAction={() => togglePanel("search")}
+            isActive={activePanel === "search"}
             panelTrigger="search"
           />
 
@@ -71,6 +76,14 @@ const Taskbar = () => {
             <span className="taskbar__clock-time">{time}</span>
             <span className="taskbar__clock-date">{date}</span>
           </div>
+
+          <TaskbarIcon
+            title="Centro de actividades"
+            reactIcon={BELL_ICON}
+            onAction={() => togglePanel("notifications")}
+            isActive={activePanel === "notifications"}
+            panelTrigger="notifications"
+          />
         </div>
       </nav>
     </>

@@ -29,12 +29,17 @@ const Window = ({ appId }) => {
     position,
     size,
     zIndex,
+    isDragging,
     isMinimized,
     isMinimizing,
     isMaximized,
     isFocused,
     isClosing,
   } = win;
+
+  //Ventana sobre snap
+  const DRAG_Z = 8950;
+  const effectiveZ = isDragging ? DRAG_Z : zIndex;
   const PageComponent = app.component;
 
   const style = isMaximized
@@ -43,14 +48,14 @@ const Window = ({ appId }) => {
         left: 0,
         width: "100vw",
         height: `calc(100vh - var(--sm-taskbar-h))`,
-        zIndex,
+        zIndex: effectiveZ,
       }
     : {
         top: position.y,
         left: position.x,
         width: size.width,
         height: size.height,
-        zIndex,
+        zIndex: effectiveZ,
       };
 
   const windowClass = [

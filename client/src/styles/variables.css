@@ -152,8 +152,11 @@
 
   /* Z-index layers */
   --sm-z-windows: 100;
+  --sm-z-snap-preview: 8900;
   --sm-z-taskbar: 9000;
   --sm-z-panel: 9100;
+  --sm-z-context-menu: 9200;
+  --sm-z-toast: 9300;
 
   /* Paneles */
   --sm-start-menu-w: 680px;

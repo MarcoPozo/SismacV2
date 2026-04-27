@@ -5,6 +5,7 @@ const TITLE_VISIBLE_LEFT = 200;
 const TITLE_VISIBLE_RIGHT = 120;
 const TASKBAR_H = 48;
 const TITLEBAR_H = 32;
+const SNAP_THRESHOLD = 8;
 
 const useDrag = (appId) => {
   const moveWindow = useWindowStore((s) => s.moveWindow);
@@ -24,9 +25,17 @@ const useDrag = (appId) => {
       if (!win) return;
 
       focusWindow(appId);
+      useWindowStore.getState().setWindowDragging(appId, true);
 
-      if (win.isMaximized) {
-        // Guardar la intención: solo unmaximizar si hay movimiento real
+      if (win.isSnapped) {
+        pendingUnmaximize.current = {
+          ratio: (e.clientX - win.position.x) / win.size.width,
+          sizeToRestore: win.sizeBeforeSnap,
+          isSnap: true,
+        };
+        isDragging.current = true;
+        startMouse.current = { x: e.clientX, y: e.clientY };
+      } else if (win.isMaximized) {
         pendingUnmaximize.current = { ratio: e.clientX / window.innerWidth };
         isDragging.current = true;
         startMouse.current = { x: e.clientX, y: e.clientY };
@@ -44,17 +53,39 @@ const useDrag = (appId) => {
         if (!isDragging.current) return;
 
         if (pendingUnmaximize.current) {
-          const { ratio } = pendingUnmaximize.current;
+          const { ratio, sizeToRestore, isSnap } = pendingUnmaximize.current;
           const currentWin = useWindowStore.getState().windows.find((w) => w.id === appId);
           if (!currentWin) return;
-          const newX = ev.clientX - ratio * currentWin.size.width;
-          const newY = 0;
-          maximizeWindow(appId);
-          moveWindow(appId, { x: newX, y: newY });
-          startPos.current = { x: newX, y: newY };
+
+          if (isSnap) {
+            const restoreW = sizeToRestore?.width ?? currentWin.size.width;
+            const newX = ev.clientX - ratio * restoreW;
+            const newY = currentWin.position.y;
+            useWindowStore.getState().unsnap(appId);
+            moveWindow(appId, { x: newX, y: newY });
+            startPos.current = { x: newX, y: newY };
+          } else {
+            const newX = ev.clientX - ratio * currentWin.size.width;
+            const newY = 0;
+            maximizeWindow(appId);
+            moveWindow(appId, { x: newX, y: newY });
+            startPos.current = { x: newX, y: newY };
+          }
           startMouse.current = { x: ev.clientX, y: ev.clientY };
           pendingUnmaximize.current = null;
           return;
+        }
+
+        const { setSnapPreview, clearSnapPreview } = useWindowStore.getState();
+
+        if (ev.clientY <= SNAP_THRESHOLD) {
+          setSnapPreview('top');
+        } else if (ev.clientX <= SNAP_THRESHOLD) {
+          setSnapPreview('left');
+        } else if (ev.clientX >= window.innerWidth - SNAP_THRESHOLD) {
+          setSnapPreview('right');
+        } else {
+          clearSnapPreview();
         }
 
         const dx = ev.clientX - startMouse.current.x;
@@ -81,6 +112,16 @@ const useDrag = (appId) => {
       const handleMouseUp = () => {
         isDragging.current = false;
         pendingUnmaximize.current = null;
+        useWindowStore.getState().setWindowDragging(appId, false);
+
+        const { snapPreview, snapWindow, clearSnapPreview } = useWindowStore.getState();
+        if (snapPreview) {
+          snapWindow(appId, snapPreview.type);
+          clearSnapPreview();
+        } else {
+          useWindowStore.getState().clearSnapPreview();
+        }
+
         document.querySelectorAll('iframe').forEach((f) => {
           f.style.pointerEvents = 'auto';
         });

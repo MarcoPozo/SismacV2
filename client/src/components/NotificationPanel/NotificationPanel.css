@@ -1,0 +1,94 @@
+.notif-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  height: calc(100vh - var(--sm-taskbar-h));
+  background: var(--sm-glass-bg-strong);
+  border-left: 1px solid var(--sm-glass-border);
+  backdrop-filter: var(--sm-glass-blur);
+  -webkit-backdrop-filter: var(--sm-glass-blur);
+  box-shadow: var(--sm-shadow-lg);
+  z-index: var(--sm-z-panel);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight var(--sm-dur-slow) var(--sm-ease) forwards;
+}
+
+.notif-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sm-space-5) var(--sm-space-5) var(--sm-space-4);
+  border-bottom: 1px solid var(--sm-border);
+  flex-shrink: 0;
+}
+
+.notif-panel__title {
+  font-size: var(--sm-text-lg);
+  font-weight: 600;
+  color: var(--sm-text);
+}
+
+.notif-panel__clear {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-1);
+  font-size: var(--sm-text-xs);
+  color: var(--sm-text-soft);
+  border-radius: var(--sm-radius-xs);
+  padding: var(--sm-space-1) var(--sm-space-2);
+  transition: background var(--sm-dur-fast) var(--sm-ease),
+              color var(--sm-dur-fast) var(--sm-ease);
+}
+
+.notif-panel__clear:hover {
+  background: var(--sm-hover-bg);
+  color: var(--sm-text);
+}
+
+.notif-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sm-space-3) var(--sm-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm-space-2);
+}
+
+.notif-panel__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sm-space-10) 0;
+}
+
+.notif-panel__empty-text {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
+}
+
+.notif-panel__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm-space-1);
+  padding: var(--sm-space-3) var(--sm-space-4);
+  background: var(--sm-surface-2);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--sm-radius-md);
+  animation: slideUp var(--sm-dur-slow) var(--sm-ease) forwards;
+}
+
+.notif-panel__item-title {
+  font-size: var(--sm-text-sm);
+  font-weight: 600;
+  color: var(--sm-text);
+  line-height: 1.3;
+}
+
+.notif-panel__item-msg {
+  font-size: var(--sm-text-xs);
+  color: var(--sm-text-soft);
+  line-height: 1.4;
+}

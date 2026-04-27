@@ -24,6 +24,9 @@ const buildWindow = (appId) => {
     isMinimizing: false,
     isMaximized: false,
     wasMaximized: false,
+    isDragging: false,
+    isSnapped: false,
+    sizeBeforeSnap: null,
     isFocused: true,
     position: { x, y },
     size: { width, height },
@@ -32,8 +35,18 @@ const buildWindow = (appId) => {
   };
 };
 
+const getSnapRect = (type) => {
+  const w = window.innerWidth;
+  const h = window.innerHeight - TASKBAR_H;
+  if (type === 'top')   return { x: 0,     y: 0, width: w,     height: h };
+  if (type === 'left')  return { x: 0,     y: 0, width: w / 2, height: h };
+  if (type === 'right') return { x: w / 2, y: 0, width: w / 2, height: h };
+  return null;
+};
+
 const useWindowStore = create((set, get) => ({
   windows: [],
+  snapPreview: null,
 
   openWindow: (appId) => {
     const existing = get().windows.find((w) => w.id === appId);
@@ -119,6 +132,52 @@ const useWindowStore = create((set, get) => ({
     set((state) => ({
       windows: state.windows.map((w) =>
         w.id === appId ? { ...w, position } : w
+      ),
+    }));
+  },
+
+  setSnapPreview: (type) => set({ snapPreview: { type, rect: getSnapRect(type) } }),
+  clearSnapPreview: () => set({ snapPreview: null }),
+
+  snapWindow: (appId, type) => {
+    if (type === 'top') {
+      set((state) => ({
+        windows: state.windows.map((w) =>
+          w.id === appId ? { ...w, isMaximized: true, isSnapped: false } : w
+        ),
+      }));
+      return;
+    }
+    const rect = getSnapRect(type);
+    set((state) => ({
+      windows: state.windows.map((w) =>
+        w.id === appId
+          ? {
+              ...w,
+              position: { x: rect.x, y: rect.y },
+              size: { width: rect.width, height: rect.height },
+              isSnapped: true,
+              sizeBeforeSnap: w.isSnapped ? w.sizeBeforeSnap : { ...w.size },
+            }
+          : w
+      ),
+    }));
+  },
+
+  setWindowDragging: (appId, val) => {
+    set((state) => ({
+      windows: state.windows.map((w) =>
+        w.id === appId ? { ...w, isDragging: val } : w
+      ),
+    }));
+  },
+
+  unsnap: (appId) => {
+    set((state) => ({
+      windows: state.windows.map((w) =>
+        w.id === appId
+          ? { ...w, isSnapped: false, size: w.sizeBeforeSnap ?? w.size, sizeBeforeSnap: null }
+          : w
       ),
     }));
   },

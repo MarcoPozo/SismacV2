@@ -42,6 +42,21 @@
   transform: scale(0.9);
 }
 
+.taskbar-icon__react-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--sm-text-xl);
+  color: var(--sm-text-soft);
+  transition: color var(--sm-dur-fast) var(--sm-ease);
+  pointer-events: none;
+}
+
+.taskbar-icon:hover .taskbar-icon__react-icon,
+.taskbar-icon--focused .taskbar-icon__react-icon {
+  color: var(--sm-text);
+}
+
 .taskbar-icon__dot {
   position: absolute;
   bottom: 0;
