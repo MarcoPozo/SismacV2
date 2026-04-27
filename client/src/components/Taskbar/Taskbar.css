@@ -20,60 +20,6 @@
   gap: var(--sm-space-1);
 }
 
-.taskbar__start {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--sm-icon-btn-size);
-  height: var(--sm-icon-btn-size);
-  border-radius: var(--sm-radius-sm);
-  background: transparent;
-  border: none;
-  transition: background var(--sm-dur-fast) var(--sm-ease);
-  cursor: default;
-}
-
-.taskbar__start:hover {
-  background: var(--sm-hover-bg);
-}
-
-.taskbar__start--active {
-  background: var(--sm-selected-bg);
-}
-
-.taskbar__search {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--sm-icon-btn-size);
-  height: var(--sm-icon-btn-size);
-  border-radius: var(--sm-radius-xs);
-  background: transparent;
-  border: none;
-  transition: background var(--sm-dur-fast) var(--sm-ease);
-  cursor: default;
-}
-
-.taskbar__search:hover {
-  background: var(--sm-hover-bg);
-}
-
-.taskbar__search--active {
-  background: var(--sm-selected-bg);
-}
-
-.taskbar__search-icon {
-  width: var(--sm-icon-taskbar);
-  height: var(--sm-icon-taskbar);
-  object-fit: contain;
-}
-
-.taskbar__start-logo {
-  width: var(--sm-icon-taskbar);
-  height: var(--sm-icon-taskbar);
-  object-fit: contain;
-}
-
 .taskbar__tray {
   position: absolute;
   right: var(--sm-space-4);

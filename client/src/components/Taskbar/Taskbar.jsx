@@ -41,33 +41,20 @@ const Taskbar = () => {
 
       <nav className="taskbar">
         <div className="taskbar__center">
-          <button
-            className={`taskbar__start${activePanel === 'start' ? ' taskbar__start--active' : ''}`}
+          <TaskbarIcon
             title="Inicio"
-            data-panel-trigger="start"
-            onClick={() => togglePanel('start')}
-          >
-            <img
-              className="taskbar__start-logo"
-              src="/images/icons/icon-sismac.png"
-              alt="Sismac"
-              draggable={false}
-            />
-          </button>
-
-          <button
-            className={`taskbar__search${activePanel === 'search' ? ' taskbar__search--active' : ''}`}
+            icon="/images/icons/icon-sismac.png"
+            onAction={() => togglePanel('start')}
+            isActive={activePanel === 'start'}
+            panelTrigger="start"
+          />
+          <TaskbarIcon
             title="Buscar"
-            data-panel-trigger="search"
-            onClick={() => togglePanel('search')}
-          >
-            <img
-              className="taskbar__search-icon"
-              src="/images/icons/icon-search.png"
-              alt="Buscar"
-              draggable={false}
-            />
-          </button>
+            icon="/images/icons/icon-search.png"
+            onAction={() => togglePanel('search')}
+            isActive={activePanel === 'search'}
+            panelTrigger="search"
+          />
 
           {pinnedApps.map((app) => (
             <TaskbarIcon
