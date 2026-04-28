@@ -1,43 +1,168 @@
-import "./Settings.css";
+import { useState, useEffect } from 'react';
 import {
   IoColorPaletteOutline,
   IoTimeOutline,
   IoInformationCircleOutline,
-} from "react-icons/io5";
+  IoCheckmark,
+} from 'react-icons/io5';
+import './Settings.css';
+import useSettingsStore from '../../store/settingsStore';
+
+const WALLPAPERS = [
+  '/images/wallpapers/bg-1.jpg',
+  '/images/wallpapers/bg-2.jpg',
+  '/images/wallpapers/bg-3.jpg',
+];
+
+const SECTIONS = [
+  { id: 'personalizacion', label: 'Personalización', icon: IoColorPaletteOutline },
+  { id: 'fecha',           label: 'Fecha y hora',    icon: IoTimeOutline },
+  { id: 'acerca',          label: 'Acerca de',       icon: IoInformationCircleOutline },
+];
 
 const Settings = () => {
+  const [activeSection, setActiveSection] = useState('personalizacion');
+  const [currentTime, setCurrentTime] = useState('');
+  const [currentDate, setCurrentDate] = useState('');
+
+  const wallpaper    = useSettingsStore((s) => s.wallpaper);
+  const accentColor  = useSettingsStore((s) => s.accentColor);
+  const accentPresets = useSettingsStore((s) => s.accentPresets);
+  const setWallpaper  = useSettingsStore((s) => s.setWallpaper);
+  const setAccentColor = useSettingsStore((s) => s.setAccentColor);
+
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      const h = now.getHours().toString().padStart(2, '0');
+      const m = now.getMinutes().toString().padStart(2, '0');
+      const s = now.getSeconds().toString().padStart(2, '0');
+      setCurrentTime(`${h}:${m}:${s}`);
+      setCurrentDate(now.toLocaleDateString('es-EC', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }));
+    };
+    tick();
+    const interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="settings">
       <aside className="settings__sidebar">
-        <button className="settings__sidebar-item settings__sidebar-item--active">
-          <IoColorPaletteOutline className="settings__sidebar-icon" />
-          <span>Personalización</span>
-        </button>
-        <button className="settings__sidebar-item">
-          <IoTimeOutline className="settings__sidebar-icon" />
-          <span>Fecha y hora</span>
-        </button>
-        <button className="settings__sidebar-item">
-          <IoInformationCircleOutline className="settings__sidebar-icon" />
-          <span>Acerca de</span>
-        </button>
+        {SECTIONS.map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            className={`settings__sidebar-item${activeSection === id ? ' settings__sidebar-item--active' : ''}`}
+            onClick={() => setActiveSection(id)}
+          >
+            <Icon className="settings__sidebar-icon" />
+            <span>{label}</span>
+          </button>
+        ))}
       </aside>
 
       <main className="settings__content">
-        <h2 className="settings__section-title">Personalización</h2>
-        <p className="settings__section-desc">
-          Aquí podrás personalizar la apariencia del sistema.
-        </p>
 
-        <div className="settings__card">
-          <span className="settings__card-label">Fondo de pantalla</span>
-          <p className="settings__card-hint">Próximamente disponible.</p>
-        </div>
+        {activeSection === 'personalizacion' && (
+          <>
+            <h2 className="settings__section-title">Personalización</h2>
+            <p className="settings__section-desc">Ajusta la apariencia visual del sistema.</p>
 
-        <div className="settings__card">
-          <span className="settings__card-label">Color de acento</span>
-          <p className="settings__card-hint">Próximamente disponible.</p>
-        </div>
+            <div className="settings__card">
+              <span className="settings__card-label">Fondo de pantalla</span>
+              <div className="settings__wallpaper-grid">
+                {WALLPAPERS.map((w) => (
+                  <button
+                    key={w}
+                    className={`settings__wallpaper-thumb${wallpaper === w ? ' settings__wallpaper-thumb--active' : ''}`}
+                    style={{ backgroundImage: `url(${w})` }}
+                    onClick={() => setWallpaper(w)}
+                    title={w.split('/').pop()}
+                  >
+                    {wallpaper === w && (
+                      <span className="settings__wallpaper-check">
+                        <IoCheckmark />
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="settings__card">
+              <span className="settings__card-label">Color de acento</span>
+              <div className="settings__accents">
+                {accentPresets.map((p) => (
+                  <button
+                    key={p.value}
+                    className={`settings__accent-swatch${accentColor === p.value ? ' settings__accent-swatch--active' : ''}`}
+                    style={{ background: p.value, '--swatch-color': p.value }}
+                    title={p.label}
+                    onClick={() => setAccentColor(p.value)}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {activeSection === 'fecha' && (
+          <>
+            <h2 className="settings__section-title">Fecha y hora</h2>
+            <p className="settings__section-desc">Información del reloj del sistema.</p>
+
+            <div className="settings__card">
+              <span className="settings__card-label">Hora actual</span>
+              <p className="settings__clock-time">{currentTime}</p>
+            </div>
+
+            <div className="settings__card">
+              <span className="settings__card-label">Fecha</span>
+              <p className="settings__clock-date">{currentDate}</p>
+            </div>
+
+            <div className="settings__card">
+              <span className="settings__card-label">Zona horaria</span>
+              <p className="settings__clock-zone">{Intl.DateTimeFormat().resolvedOptions().timeZone}</p>
+            </div>
+          </>
+        )}
+
+        {activeSection === 'acerca' && (
+          <>
+            <h2 className="settings__section-title">Acerca de</h2>
+            <p className="settings__section-desc">Información del sistema ISMAC.</p>
+
+            <div className="settings__card">
+              <div className="settings__about-row">
+                <span className="settings__about-key">Sistema</span>
+                <span className="settings__about-val">ISMAC Sistema de Gestión</span>
+              </div>
+              <div className="settings__about-row">
+                <span className="settings__about-key">Versión</span>
+                <span className="settings__about-val">2.0.0</span>
+              </div>
+              <div className="settings__about-row">
+                <span className="settings__about-key">Año</span>
+                <span className="settings__about-val">{new Date().getFullYear()}</span>
+              </div>
+            </div>
+
+            <div className="settings__card">
+              <span className="settings__card-label">Stack tecnológico</span>
+              <div className="settings__stack">
+                {['React 19', 'Vite 8', 'Zustand', 'React Router v6', 'React Icons'].map((tech) => (
+                  <span key={tech} className="settings__stack-chip">{tech}</span>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
       </main>
     </div>
   );

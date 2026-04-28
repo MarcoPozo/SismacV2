@@ -19,6 +19,7 @@ import appsRegistry from '../../config/appsRegistry';
 import useWindowStore from '../../store/windowStore';
 import usePanelStore from '../../store/panelStore';
 import useContextMenuStore from '../../store/contextMenuStore';
+import useSettingsStore from '../../store/settingsStore';
 
 const MENU_ITEM_H = 36;
 const MENU_DIVIDER_H = 9;
@@ -39,6 +40,7 @@ const Desktop = () => {
   const navigate = useNavigate();
   const windows = useWindowStore((s) => s.windows);
   const openWindow = useWindowStore((s) => s.openWindow);
+  const wallpaper = useSettingsStore((s) => s.wallpaper);
 
   const desktopApps = appsRegistry.filter((a) => a.showOnDesktop);
 
@@ -156,7 +158,7 @@ const Desktop = () => {
 
   return (
     <div className="desktop" onContextMenu={handleDesktopContextMenu}>
-      <div className="desktop__wallpaper" />
+      <div className="desktop__wallpaper" style={{ backgroundImage: `url(${wallpaper})` }} />
 
       <div className="desktop__icons">
         {desktopApps.map((app) => (

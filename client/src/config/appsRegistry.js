@@ -10,6 +10,7 @@ const appsRegistry = [
     defaultSize: { width: 800, height: 520 },
     showOnDesktop: true,
     pinToTaskbar: true,
+    pinToStartMenu: true,
   },
 ];
 
