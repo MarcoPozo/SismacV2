@@ -16,7 +16,7 @@ body,
 body {
   margin: 0;
   color: var(--sm-text);
-  background: #0f0f14;
+  background: var(--sm-bg-base);
   font-family: var(--sm-font-body);
   font-size: var(--sm-text-md);
   line-height: 1.6;

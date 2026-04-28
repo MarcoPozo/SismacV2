@@ -67,13 +67,14 @@
 .window__title {
   font-size: var(--sm-text-sm);
   font-family: var(--sm-font-body);
-  color: var(--sm-text-soft);
+  color: var(--sm-window-titlebar-text);
+  opacity: 0.65;
   font-weight: 400;
   letter-spacing: 0.01em;
 }
 
 .window--focused .window__title {
-  color: var(--sm-text);
+  opacity: 1;
 }
 
 .window__controls {
@@ -89,22 +90,25 @@
   height: 100%;
   background: transparent;
   border: none;
-  color: var(--sm-text-muted);
+  color: var(--sm-window-titlebar-text);
+  opacity: 0.55;
   font-size: var(--sm-text-sm);
   cursor: default;
   transition:
     background var(--sm-dur-fast) var(--sm-ease),
-    color var(--sm-dur-fast) var(--sm-ease);
+    color var(--sm-dur-fast) var(--sm-ease),
+    opacity var(--sm-dur-fast) var(--sm-ease);
 }
 
 .window__controls-btn:hover {
   background: var(--sm-hover-bg-subtle);
-  color: var(--sm-text);
+  opacity: 1;
 }
 
 .window__controls-btn--close:hover {
   background: var(--sm-win-close);
   color: var(--sm-text-invert);
+  opacity: 1;
 }
 
 .window__body {
