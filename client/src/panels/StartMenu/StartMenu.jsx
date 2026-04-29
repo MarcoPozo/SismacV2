@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { IoMdPower } from "react-icons/io";
 import { IoAppsOutline } from "react-icons/io5";
 import "./StartMenu.css";
 import appsRegistry from "../../config/appsRegistry";
 import usePanelStore from "../../store/panelStore";
 import useWindowStore from "../../store/windowStore";
+import usePanelClose from "../../hooks/usePanelClose";
 
 const StartMenu = () => {
   const closePanel = usePanelStore((s) => s.closePanel);
   const openWindow = useWindowStore((s) => s.openWindow);
   const windows = useWindowStore((s) => s.windows);
-  const panelRef = useRef(null);
+  const panelRef = usePanelClose(closePanel);
   const [showAllApps, setShowAllApps] = useState(false);
 
   const pinnedApps = appsRegistry.filter((a) => a.pinToStartMenu);
@@ -24,15 +25,6 @@ const StartMenu = () => {
     .slice(0, 4)
     .map((w) => appsRegistry.find((a) => a.id === w.id))
     .filter(Boolean);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (e.target.closest("[data-panel-trigger]")) return;
-      if (!panelRef.current?.contains(e.target)) closePanel();
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [closePanel]);
 
   const handleOpenApp = (appId) => {
     openWindow(appId);

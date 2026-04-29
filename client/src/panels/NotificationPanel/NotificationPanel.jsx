@@ -1,27 +1,13 @@
-import { useEffect, useRef } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import "./NotificationPanel.css";
 import usePanelStore from "../../store/panelStore";
 import useNotificationStore from "../../store/notificationStore";
+import usePanelClose from "../../hooks/usePanelClose";
 
 const NotificationPanel = () => {
   const closePanel = usePanelStore((s) => s.closePanel);
   const toasts = useNotificationStore((s) => s.toasts);
-  const panelRef = useRef(null);
-
-  useEffect(() => {
-    const handleOutside = (e) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(e.target) &&
-        !e.target.closest('[data-panel-trigger="notifications"]')
-      ) {
-        closePanel();
-      }
-    };
-    document.addEventListener("mousedown", handleOutside);
-    return () => document.removeEventListener("mousedown", handleOutside);
-  }, [closePanel]);
+  const panelRef = usePanelClose(closePanel, '[data-panel-trigger="notifications"]');
 
   return (
     <div className="notif-panel" ref={panelRef}>

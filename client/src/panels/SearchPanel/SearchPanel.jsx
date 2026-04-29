@@ -1,30 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import "./SearchPanel.css";
 import usePanelStore from "../../store/panelStore";
+import usePanelClose from "../../hooks/usePanelClose";
 
 const TABS = ["All", "Apps", "Documents", "Web", "More"];
 
 const SearchPanel = () => {
   const closePanel = usePanelStore((s) => s.closePanel);
-  const panelRef = useRef(null);
+  const panelRef = usePanelClose(closePanel);
   const [activeTab, setActiveTab] = useState("All");
-
-  useEffect(() => {
-    const handleOutside = (e) => {
-      if (e.target.closest("[data-panel-trigger]")) return;
-      if (!panelRef.current?.contains(e.target)) closePanel();
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closePanel();
-    };
-    document.addEventListener("mousedown", handleOutside);
-    document.addEventListener("keydown", handleEsc);
-    return () => {
-      document.removeEventListener("mousedown", handleOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, [closePanel]);
 
   return (
     <div className="search-panel" ref={panelRef}>
