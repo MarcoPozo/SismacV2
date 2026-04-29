@@ -68,8 +68,9 @@
   color: var(--sm-text-muted);
   border-radius: var(--sm-radius-sm) var(--sm-radius-sm) 0 0;
   border-bottom: 2px solid transparent;
-  transition: color var(--sm-dur-fast) var(--sm-ease),
-              border-color var(--sm-dur-fast) var(--sm-ease);
+  transition:
+    color var(--sm-dur-fast) var(--sm-ease),
+    border-color var(--sm-dur-fast) var(--sm-ease);
 }
 
 .search-panel__tab:hover {

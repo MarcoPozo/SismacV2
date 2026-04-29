@@ -1,5 +1,3 @@
-// Toda la informacion de las carreras
-
 import {
   IoMedkitOutline,
   IoFlashOutline,

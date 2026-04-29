@@ -1,28 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
-import { IoSearchOutline } from 'react-icons/io5';
-import './SearchPanel.css';
-import usePanelStore from '../../store/panelStore';
+import { useEffect, useRef, useState } from "react";
+import { IoSearchOutline } from "react-icons/io5";
+import "./SearchPanel.css";
+import usePanelStore from "../../store/panelStore";
 
-const TABS = ['All', 'Apps', 'Documents', 'Web', 'More'];
+const TABS = ["All", "Apps", "Documents", "Web", "More"];
 
 const SearchPanel = () => {
   const closePanel = usePanelStore((s) => s.closePanel);
   const panelRef = useRef(null);
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState("All");
 
   useEffect(() => {
     const handleOutside = (e) => {
-      if (e.target.closest('[data-panel-trigger]')) return;
+      if (e.target.closest("[data-panel-trigger]")) return;
       if (!panelRef.current?.contains(e.target)) closePanel();
     };
     const handleEsc = (e) => {
-      if (e.key === 'Escape') closePanel();
+      if (e.key === "Escape") closePanel();
     };
-    document.addEventListener('mousedown', handleOutside);
-    document.addEventListener('keydown', handleEsc);
+    document.addEventListener("mousedown", handleOutside);
+    document.addEventListener("keydown", handleEsc);
     return () => {
-      document.removeEventListener('mousedown', handleOutside);
-      document.removeEventListener('keydown', handleEsc);
+      document.removeEventListener("mousedown", handleOutside);
+      document.removeEventListener("keydown", handleEsc);
     };
   }, [closePanel]);
 
@@ -42,9 +42,8 @@ const SearchPanel = () => {
         {TABS.map((tab) => (
           <button
             key={tab}
-            className={`search-panel__tab${activeTab === tab ? ' search-panel__tab--active' : ''}`}
-            onClick={() => setActiveTab(tab)}
-          >
+            className={`search-panel__tab${activeTab === tab ? " search-panel__tab--active" : ""}`}
+            onClick={() => setActiveTab(tab)}>
             {tab}
           </button>
         ))}

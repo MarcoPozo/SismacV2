@@ -10,11 +10,11 @@ import {
 } from 'react-icons/io5';
 import './Desktop.css';
 import Taskbar from '../Taskbar/Taskbar';
-import DesktopIcon from '../DesktopIcon/DesktopIcon';
+import DesktopIcon from '../../ui/DesktopIcon/DesktopIcon';
 import Window from '../Window/Window';
 import SnapPreview from '../SnapPreview/SnapPreview';
-import ContextMenu from '../ContextMenu/ContextMenu';
-import ToastContainer from '../ToastContainer/ToastContainer';
+import ContextMenu from '../../ui/ContextMenu/ContextMenu';
+import ToastContainer from '../../ui/ToastContainer/ToastContainer';
 import appsRegistry from '../../config/appsRegistry';
 import useWindowStore from '../../store/windowStore';
 import usePanelStore from '../../store/panelStore';

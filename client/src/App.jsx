@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DesktopPage from './pages/Desktop/Desktop';
+import Desktop from './shell/Desktop/Desktop';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<DesktopPage />} />
+        <Route path="/*" element={<Desktop />} />
       </Routes>
     </BrowserRouter>
   );

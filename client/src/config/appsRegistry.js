@@ -6,7 +6,7 @@ const appsRegistry = [
     title: "Configuración",
     icon: "/images/icons/icon-settings.png",
     route: "/configuracion",
-    component: lazy(() => import("../pages/Settings/Settings.jsx")),
+    component: lazy(() => import("../apps/Settings/Settings.jsx")),
     defaultSize: { width: 800, height: 520 },
     showOnDesktop: true,
     pinToTaskbar: true,
