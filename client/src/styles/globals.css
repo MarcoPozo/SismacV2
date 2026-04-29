@@ -75,6 +75,13 @@ select {
   font-size: var(--sm-text-md);
 }
 
+/* App vacía — placeholder */
+.app-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--sm-surface);
+}
+
 /* Scrollbar Global */
 ::-webkit-scrollbar {
   width: 4px;

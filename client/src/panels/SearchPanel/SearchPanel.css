@@ -55,54 +55,59 @@
   color: var(--sm-text-muted);
 }
 
-.search-panel__tabs {
+.search-panel__results {
+  padding: var(--sm-space-4) var(--sm-space-4) var(--sm-space-5);
   display: flex;
+  flex-direction: column;
   gap: var(--sm-space-1);
-  padding: var(--sm-space-3) var(--sm-space-5) 0;
-  border-bottom: 1px solid var(--sm-border);
+  max-height: 320px;
+  overflow-y: auto;
 }
 
-.search-panel__tab {
-  padding: var(--sm-space-2) var(--sm-space-3);
-  font-size: var(--sm-text-sm);
-  color: var(--sm-text-muted);
-  border-radius: var(--sm-radius-sm) var(--sm-radius-sm) 0 0;
-  border-bottom: 2px solid transparent;
-  transition:
-    color var(--sm-dur-fast) var(--sm-ease),
-    border-color var(--sm-dur-fast) var(--sm-ease);
-}
-
-.search-panel__tab:hover {
-  color: var(--sm-text-soft);
-}
-
-.search-panel__tab--active {
-  color: var(--sm-text);
-  border-bottom-color: var(--sm-brand);
-}
-
-.search-panel__section {
-  padding: var(--sm-space-4) var(--sm-space-5);
-}
-
-.search-panel__section + .search-panel__section {
-  border-top: 1px solid var(--sm-border);
-}
-
-.search-panel__section-title {
+.search-panel__results-title {
   display: block;
   font-size: var(--sm-text-sm);
   font-weight: 600;
   color: var(--sm-text);
-  margin-bottom: var(--sm-space-3);
+  padding: 0 var(--sm-space-2);
+  margin-bottom: var(--sm-space-2);
 }
 
-.search-panel__apps {
-  min-height: 96px;
+.search-panel__result {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-3);
+  padding: var(--sm-space-2) var(--sm-space-3);
+  border-radius: var(--sm-radius-sm);
+  text-align: left;
+  color: var(--sm-text-soft);
+  font-size: var(--sm-text-sm);
+  font-family: var(--sm-font-body);
+  transition:
+    background var(--sm-dur-fast) var(--sm-ease),
+    color var(--sm-dur-fast) var(--sm-ease);
 }
 
-.search-panel__quick {
-  min-height: 80px;
-  padding-bottom: var(--sm-space-2);
+.search-panel__result:hover,
+.search-panel__result--selected {
+  background: var(--sm-hover-bg);
+  color: var(--sm-text);
+}
+
+.search-panel__result-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.search-panel__result-label {
+  flex: 1;
+}
+
+.search-panel__empty {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
+  text-align: center;
+  padding: var(--sm-space-8) 0;
 }
