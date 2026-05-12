@@ -26,6 +26,7 @@ const buildWindow = (appId) => {
     wasMaximized: false,
     isDragging: false,
     isSnapped: false,
+    snapType: null,
     sizeBeforeSnap: null,
     isFocused: true,
     position: { x, y },
@@ -148,15 +149,13 @@ const useWindowStore = create((set, get) => ({
       }));
       return;
     }
-    const rect = getSnapRect(type);
     set((state) => ({
       windows: state.windows.map((w) =>
         w.id === appId
           ? {
               ...w,
-              position: { x: rect.x, y: rect.y },
-              size: { width: rect.width, height: rect.height },
               isSnapped: true,
+              snapType: type,
               sizeBeforeSnap: w.isSnapped ? w.sizeBeforeSnap : { ...w.size },
             }
           : w
@@ -176,7 +175,7 @@ const useWindowStore = create((set, get) => ({
     set((state) => ({
       windows: state.windows.map((w) =>
         w.id === appId
-          ? { ...w, isSnapped: false, size: w.sizeBeforeSnap ?? w.size, sizeBeforeSnap: null }
+          ? { ...w, isSnapped: false, snapType: null, size: w.sizeBeforeSnap ?? w.size, sizeBeforeSnap: null }
           : w
       ),
     }));

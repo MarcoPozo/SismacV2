@@ -33,35 +33,31 @@ const Window = ({ appId }) => {
     isMinimized,
     isMinimizing,
     isMaximized,
+    isSnapped,
+    snapType,
     isFocused,
     isClosing,
   } = win;
 
-  //Ventana sobre snap
   const DRAG_Z = 8950;
   const effectiveZ = isDragging ? DRAG_Z : zIndex;
   const PageComponent = app.component;
 
+  const SNAP_STYLES = {
+    left:  { top: 0, left: 0,       width: '50vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ },
+    right: { top: 0, left: '50vw',  width: '50vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ },
+  };
+
   const style = isMaximized
-    ? {
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: `calc(100vh - var(--sm-taskbar-h))`,
-        zIndex: effectiveZ,
-      }
-    : {
-        top: position.y,
-        left: position.x,
-        width: size.width,
-        height: size.height,
-        zIndex: effectiveZ,
-      };
+    ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ }
+    : isSnapped && snapType
+    ? SNAP_STYLES[snapType]
+    : { top: position.y, left: position.x, width: size.width, height: size.height, zIndex: effectiveZ };
 
   const windowClass = [
     "window",
     isFocused ? "window--focused" : "",
-    isMaximized ? "window--maximized" : "",
+    isMaximized || isSnapped ? "window--maximized" : "",
     isMinimized ? "window--minimized" : "",
     isMinimizing ? "window--minimizing" : "",
     isClosing ? "window--closing" : "",
