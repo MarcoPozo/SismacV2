@@ -5,7 +5,9 @@ let zCounter = 10;
 
 const TASKBAR_H = 48;
 
-const buildWindow = (appId) => {
+const CASCADE_OFFSET = 32;
+
+const buildWindow = (appId, existingCount) => {
   const app = appsRegistry.find((a) => a.id === appId);
   if (!app) return null;
 
@@ -15,8 +17,18 @@ const buildWindow = (appId) => {
   const width = Math.min(app.defaultSize.width, Math.floor(availableW * 0.88));
   const height = Math.min(app.defaultSize.height, Math.floor(availableH * 0.88));
 
-  const x = Math.max(0, (availableW - width) / 2);
-  const y = Math.max(0, (availableH - height) / 2);
+  const maxSteps = Math.max(1, Math.floor(Math.min(
+    (availableW - width) / CASCADE_OFFSET,
+    (availableH - height) / CASCADE_OFFSET,
+  )));
+  const step = existingCount % (maxSteps + 1);
+
+  const centerX = Math.floor((availableW - width) / 2);
+  const centerY = Math.floor((availableH - height) / 2);
+  const halfRange = Math.floor((maxSteps * CASCADE_OFFSET) / 2);
+
+  const x = Math.max(0, centerX - halfRange + step * CASCADE_OFFSET);
+  const y = Math.max(0, centerY - halfRange + step * CASCADE_OFFSET);
 
   return {
     id: appId,
@@ -65,7 +77,7 @@ const useWindowStore = create((set, get) => ({
       }));
       return;
     }
-    const win = buildWindow(appId);
+    const win = buildWindow(appId, get().windows.length);
     if (!win) return;
     set((state) => ({
       windows: [
