@@ -28,8 +28,10 @@ const useDrag = (appId) => {
       useWindowStore.getState().setWindowDragging(appId, true);
 
       if (win.isSnapped) {
+        const snapX = win.snapType === 'right' ? window.innerWidth / 2 : 0;
+        const snapW = window.innerWidth / 2;
         pendingUnmaximize.current = {
-          ratio: (e.clientX - win.position.x) / win.size.width,
+          ratio: (e.clientX - snapX) / snapW,
           sizeToRestore: win.sizeBeforeSnap,
           isSnap: true,
         };
@@ -60,7 +62,7 @@ const useDrag = (appId) => {
           if (isSnap) {
             const restoreW = sizeToRestore?.width ?? currentWin.size.width;
             const newX = ev.clientX - ratio * restoreW;
-            const newY = currentWin.position.y;
+            const newY = 0;
             useWindowStore.getState().unsnap(appId);
             moveWindow(appId, { x: newX, y: newY });
             startPos.current = { x: newX, y: newY };
