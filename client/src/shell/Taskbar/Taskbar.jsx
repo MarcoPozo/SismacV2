@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
-import "./Taskbar.css";
-import TaskbarIcon from "../../ui/TaskbarIcon/TaskbarIcon";
-import StartMenu from "../../panels/StartMenu/StartMenu";
-import SearchPanel from "../../panels/SearchPanel/SearchPanel";
-import NotificationPanel from "../../panels/NotificationPanel/NotificationPanel";
 import appsRegistry from "../../config/appsRegistry";
-import usePanelStore from "../../store/panelStore";
+import useActivePanel from "../../hooks/useActivePanel";
+import NotificationPanel from "../../panels/NotificationPanel/NotificationPanel";
+import SearchPanel from "../../panels/SearchPanel/SearchPanel";
+import StartMenu from "../../panels/StartMenu/StartMenu";
 import useWindowStore from "../../store/windowStore";
+import TaskbarIcon from "../../ui/TaskbarIcon/TaskbarIcon";
+import "./Taskbar.css";
 
 const BELL_ICON = <IoNotificationsOutline />;
 
@@ -15,14 +15,13 @@ const Taskbar = () => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
-  const activePanel = usePanelStore((s) => s.activePanel);
-  const togglePanel = usePanelStore((s) => s.togglePanel);
+  const { activePanel, togglePanel } = useActivePanel();
   const windows = useWindowStore((s) => s.windows);
   const openWindowIds = windows.map((w) => w.id);
 
   const pinnedApps = appsRegistry.filter((a) => a.pinToTaskbar);
   const runningUnpinnedApps = appsRegistry.filter(
-    (a) => !a.pinToTaskbar && openWindowIds.includes(a.id),
+    (a) => !a.pinToTaskbar && openWindowIds.includes(a.id)
   );
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const Taskbar = () => {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
-        }),
+        })
       );
     };
     handleUpdateClock();
@@ -68,20 +67,10 @@ const Taskbar = () => {
           />
 
           {pinnedApps.map((app) => (
-            <TaskbarIcon
-              key={app.id}
-              appId={app.id}
-              title={app.title}
-              icon={app.icon}
-            />
+            <TaskbarIcon key={app.id} appId={app.id} title={app.title} icon={app.icon} />
           ))}
           {runningUnpinnedApps.map((app) => (
-            <TaskbarIcon
-              key={app.id}
-              appId={app.id}
-              title={app.title}
-              icon={app.icon}
-            />
+            <TaskbarIcon key={app.id} appId={app.id} title={app.title} icon={app.icon} />
           ))}
         </div>
 

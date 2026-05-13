@@ -3,9 +3,9 @@ import { IoMdPower } from "react-icons/io";
 import { IoAppsOutline } from "react-icons/io5";
 import "./StartMenu.css";
 import appsRegistry from "../../config/appsRegistry";
-import usePanelStore from "../../store/panelStore";
-import useWindowStore from "../../store/windowStore";
+import useActivePanel from "../../hooks/useActivePanel";
 import usePanelClose from "../../hooks/usePanelClose";
+import useWindowStore from "../../store/windowStore";
 
 const pinnedApps = appsRegistry.filter((a) => a.pinToStartMenu);
 const allApps = [...appsRegistry].sort((a, b) =>
@@ -13,10 +13,10 @@ const allApps = [...appsRegistry].sort((a, b) =>
 );
 
 const StartMenu = () => {
-  const closePanel = usePanelStore((s) => s.closePanel);
-  const openWindow = useWindowStore((s) => s.openWindow);
-  const windows = useWindowStore((s) => s.windows);
-  const panelRef = usePanelClose(closePanel);
+  const { closePanel } = useActivePanel();
+  const openWindow     = useWindowStore((s) => s.openWindow);
+  const windows        = useWindowStore((s) => s.windows);
+  const panelRef       = usePanelClose(closePanel);
   const [showAllApps, setShowAllApps] = useState(false);
 
   const recentApps = useMemo(

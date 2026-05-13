@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 import {
   VscChromeClose,
-  VscChromeMinimize,
   VscChromeMaximize,
+  VscChromeMinimize,
   VscChromeRestore,
 } from "react-icons/vsc";
-import "./Window.css";
-import useDrag from "../../hooks/useDrag";
-import useWindowStore from "../../store/windowStore";
 import appsRegistry from "../../config/appsRegistry";
 import { DRAG_Z } from "../../config/constants";
+import useAppWindow from "../../hooks/useAppWindow";
+import useDrag from "../../hooks/useDrag";
+import "./Window.css";
 
 const SNAP_POSITIONS = {
   left: {
@@ -27,15 +27,16 @@ const SNAP_POSITIONS = {
 };
 
 const Window = ({ appId }) => {
-  const windows = useWindowStore((s) => s.windows);
-  const closeWindow = useWindowStore((s) => s.closeWindow);
-  const destroyWindow = useWindowStore((s) => s.destroyWindow);
-  const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
-  const finishMinimize = useWindowStore((s) => s.finishMinimize);
-  const maximizeWindow = useWindowStore((s) => s.maximizeWindow);
-  const focusWindow = useWindowStore((s) => s.focusWindow);
+  const {
+    win,
+    closeWindow,
+    destroyWindow,
+    minimizeWindow,
+    finishMinimize,
+    maximizeWindow,
+    focusWindow,
+  } = useAppWindow(appId);
 
-  const win = windows.find((w) => w.id === appId);
   const app = appsRegistry.find((a) => a.id === appId);
   const { handleMouseDown } = useDrag(appId);
 
@@ -102,18 +103,15 @@ const Window = ({ appId }) => {
       className={windowClass}
       style={style}
       onMouseDown={handleWindowMouseDown}
-      onAnimationEnd={handleAnimationEnd}>
+      onAnimationEnd={handleAnimationEnd}
+    >
       <div
         className="window__titlebar"
         onMouseDown={handleMouseDown}
-        onDoubleClick={() => maximizeWindow(appId)}>
+        onDoubleClick={() => maximizeWindow(appId)}
+      >
         <div className="window__titlebar-left">
-          <img
-            className="window__icon"
-            src={app.icon}
-            alt={app.title}
-            draggable={false}
-          />
+          <img className="window__icon" src={app.icon} alt={app.title} draggable={false} />
           <span className="window__title">{app.title}</span>
         </div>
         <div className="window__controls">
@@ -123,7 +121,8 @@ const Window = ({ appId }) => {
               e.stopPropagation();
               minimizeWindow(appId);
             }}
-            title="Minimizar">
+            title="Minimizar"
+          >
             <VscChromeMinimize />
           </button>
           <button
@@ -132,7 +131,8 @@ const Window = ({ appId }) => {
               e.stopPropagation();
               maximizeWindow(appId);
             }}
-            title={isMaximized ? "Restaurar" : "Maximizar"}>
+            title={isMaximized ? "Restaurar" : "Maximizar"}
+          >
             {isMaximized ? <VscChromeRestore /> : <VscChromeMaximize />}
           </button>
           <button
@@ -141,7 +141,8 @@ const Window = ({ appId }) => {
               e.stopPropagation();
               closeWindow(appId);
             }}
-            title="Cerrar">
+            title="Cerrar"
+          >
             <VscChromeClose />
           </button>
         </div>

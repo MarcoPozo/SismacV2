@@ -1,52 +1,59 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 import {
-  IoColorPaletteOutline,
-  IoTimeOutline,
-  IoInformationCircleOutline,
   IoCheckmark,
-  IoSunnyOutline,
+  IoColorPaletteOutline,
+  IoInformationCircleOutline,
   IoMoonOutline,
-} from 'react-icons/io5';
-import './Settings.css';
-import useSettingsStore from '../../store/settingsStore';
-import { CAREERS } from '../../config/careersRegistry';
+  IoSunnyOutline,
+  IoTimeOutline,
+} from "react-icons/io5";
+import { CAREERS } from "../../config/careersRegistry";
+import useAppSettings from "../../hooks/useAppSettings";
+import "./Settings.css";
 
 const WALLPAPERS = [
-  '/images/wallpapers/bg-1.jpg',
-  '/images/wallpapers/bg-2.jpg',
-  '/images/wallpapers/bg-3.jpg',
+  "/images/wallpapers/bg-1.jpg",
+  "/images/wallpapers/bg-2.jpg",
+  "/images/wallpapers/bg-3.jpg",
 ];
 
 const SECTIONS = [
-  { id: 'personalizacion', label: 'Personalización', icon: IoColorPaletteOutline },
-  { id: 'fecha',           label: 'Fecha y hora',    icon: IoTimeOutline },
-  { id: 'acerca',          label: 'Acerca de',       icon: IoInformationCircleOutline },
+  { id: "personalizacion", label: "Personalización", icon: IoColorPaletteOutline },
+  { id: "fecha", label: "Fecha y hora", icon: IoTimeOutline },
+  { id: "acerca", label: "Acerca de", icon: IoInformationCircleOutline },
 ];
 
 const Settings = () => {
-  const [activeSection, setActiveSection] = useState('personalizacion');
-  const [currentTime, setCurrentTime]     = useState('');
-  const [currentDate, setCurrentDate]     = useState('');
+  const [activeSection, setActiveSection] = useState("personalizacion");
+  const [currentTime, setCurrentTime] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
 
-  const wallpaper      = useSettingsStore((s) => s.wallpaper);
-  const accentColor    = useSettingsStore((s) => s.accentColor);
-  const baseMode       = useSettingsStore((s) => s.baseMode);
-  const careerTheme    = useSettingsStore((s) => s.careerTheme);
-  const setWallpaper   = useSettingsStore((s) => s.setWallpaper);
-  const setAccentColor = useSettingsStore((s) => s.setAccentColor);
-  const setBaseMode    = useSettingsStore((s) => s.setBaseMode);
-  const setCareerTheme = useSettingsStore((s) => s.setCareerTheme);
+  const {
+    wallpaper,
+    accentColor,
+    baseMode,
+    careerTheme,
+    setWallpaper,
+    setAccentColor,
+    setBaseMode,
+    setCareerTheme,
+  } = useAppSettings();
 
   useEffect(() => {
     const tick = () => {
       const now = new Date();
-      const h = now.getHours().toString().padStart(2, '0');
-      const m = now.getMinutes().toString().padStart(2, '0');
-      const s = now.getSeconds().toString().padStart(2, '0');
+      const h = now.getHours().toString().padStart(2, "0");
+      const m = now.getMinutes().toString().padStart(2, "0");
+      const s = now.getSeconds().toString().padStart(2, "0");
       setCurrentTime(`${h}:${m}:${s}`);
-      setCurrentDate(now.toLocaleDateString('es-EC', {
-        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-      }));
+      setCurrentDate(
+        now.toLocaleDateString("es-EC", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      );
     };
     tick();
     const interval = setInterval(tick, 1000);
@@ -59,7 +66,7 @@ const Settings = () => {
         {SECTIONS.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
-            className={`settings__sidebar-item${activeSection === id ? ' settings__sidebar-item--active' : ''}`}
+            className={`settings__sidebar-item${activeSection === id ? " settings__sidebar-item--active" : ""}`}
             onClick={() => setActiveSection(id)}
           >
             <Icon className="settings__sidebar-icon" />
@@ -69,8 +76,7 @@ const Settings = () => {
       </aside>
 
       <main className="settings__content">
-
-        {activeSection === 'personalizacion' && (
+        {activeSection === "personalizacion" && (
           <>
             <h2 className="settings__section-title">Personalización</h2>
             <p className="settings__section-desc">Ajusta la apariencia visual del sistema.</p>
@@ -82,13 +88,15 @@ const Settings = () => {
                 {WALLPAPERS.map((w) => (
                   <button
                     key={w}
-                    className={`settings__wallpaper-thumb${wallpaper === w ? ' settings__wallpaper-thumb--active' : ''}`}
+                    className={`settings__wallpaper-thumb${wallpaper === w ? " settings__wallpaper-thumb--active" : ""}`}
                     style={{ backgroundImage: `url(${w})` }}
                     onClick={() => setWallpaper(w)}
-                    title={w.split('/').pop()}
+                    title={w.split("/").pop()}
                   >
                     {wallpaper === w && (
-                      <span className="settings__wallpaper-check"><IoCheckmark /></span>
+                      <span className="settings__wallpaper-check">
+                        <IoCheckmark />
+                      </span>
                     )}
                   </button>
                 ))}
@@ -100,20 +108,20 @@ const Settings = () => {
               <span className="settings__card-label">Modo</span>
               <div className="settings__mode">
                 <button
-                  className={`settings__mode-btn${baseMode === 'dark' ? ' settings__mode-btn--active' : ''}`}
-                  onClick={() => setBaseMode('dark')}
+                  className={`settings__mode-btn${baseMode === "dark" ? " settings__mode-btn--active" : ""}`}
+                  onClick={() => setBaseMode("dark")}
                 >
                   <IoMoonOutline className="settings__mode-icon" />
                   <span>Oscuro</span>
-                  {baseMode === 'dark' && <IoCheckmark className="settings__mode-check" />}
+                  {baseMode === "dark" && <IoCheckmark className="settings__mode-check" />}
                 </button>
                 <button
-                  className={`settings__mode-btn${baseMode === 'light' ? ' settings__mode-btn--active' : ''}`}
-                  onClick={() => setBaseMode('light')}
+                  className={`settings__mode-btn${baseMode === "light" ? " settings__mode-btn--active" : ""}`}
+                  onClick={() => setBaseMode("light")}
                 >
                   <IoSunnyOutline className="settings__mode-icon" />
                   <span>Claro</span>
-                  {baseMode === 'light' && <IoCheckmark className="settings__mode-check" />}
+                  {baseMode === "light" && <IoCheckmark className="settings__mode-check" />}
                 </button>
               </div>
             </div>
@@ -125,8 +133,8 @@ const Settings = () => {
                 {CAREERS.map((c) => (
                   <button
                     key={c.id}
-                    className={`settings__accent-swatch${accentColor === c.colors.primary ? ' settings__accent-swatch--active' : ''}`}
-                    style={{ background: c.colors.primary, '--swatch-color': c.colors.primary }}
+                    className={`settings__accent-swatch${accentColor === c.colors.primary ? " settings__accent-swatch--active" : ""}`}
+                    style={{ background: c.colors.primary, "--swatch-color": c.colors.primary }}
                     title={c.label}
                     onClick={() => setAccentColor(c.colors.primary)}
                   />
@@ -137,7 +145,9 @@ const Settings = () => {
             {/* Tema de carrera */}
             <div className="settings__card">
               <span className="settings__card-label">Tema de carrera</span>
-              <p className="settings__card-hint">Dale color a la barras superior de las ventanas. Toca de nuevo para desactivar.</p>
+              <p className="settings__card-hint">
+                Dale color a la barras superior de las ventanas. Toca de nuevo para desactivar.
+              </p>
               <div className="settings__career-grid">
                 {CAREERS.map((career) => {
                   const Icon = career.icon;
@@ -145,8 +155,8 @@ const Settings = () => {
                   return (
                     <button
                       key={career.id}
-                      className={`settings__career-item${isActive ? ' settings__career-item--active' : ''}`}
-                      style={{ '--career-color': career.colors.primary }}
+                      className={`settings__career-item${isActive ? " settings__career-item--active" : ""}`}
+                      style={{ "--career-color": career.colors.primary }}
                       onClick={() => setCareerTheme(isActive ? null : career.id)}
                       title={career.label}
                     >
@@ -158,7 +168,9 @@ const Settings = () => {
                       </div>
                       <span className="settings__career-name">{career.label}</span>
                       {isActive && (
-                        <span className="settings__career-check"><IoCheckmark /></span>
+                        <span className="settings__career-check">
+                          <IoCheckmark />
+                        </span>
                       )}
                     </button>
                   );
@@ -168,7 +180,7 @@ const Settings = () => {
           </>
         )}
 
-        {activeSection === 'fecha' && (
+        {activeSection === "fecha" && (
           <>
             <h2 className="settings__section-title">Fecha y hora</h2>
             <p className="settings__section-desc">Información del reloj del sistema.</p>
@@ -183,12 +195,14 @@ const Settings = () => {
             </div>
             <div className="settings__card">
               <span className="settings__card-label">Zona horaria</span>
-              <p className="settings__clock-zone">{Intl.DateTimeFormat().resolvedOptions().timeZone}</p>
+              <p className="settings__clock-zone">
+                {Intl.DateTimeFormat().resolvedOptions().timeZone}
+              </p>
             </div>
           </>
         )}
 
-        {activeSection === 'acerca' && (
+        {activeSection === "acerca" && (
           <>
             <h2 className="settings__section-title">Acerca de</h2>
             <p className="settings__section-desc">Información del sistema ISMAC.</p>
@@ -216,7 +230,6 @@ const Settings = () => {
             </div>
           </>
         )}
-
       </main>
     </div>
   );

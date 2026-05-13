@@ -1,11 +1,11 @@
 import { IoTrashOutline } from "react-icons/io5";
-import "./NotificationPanel.css";
-import usePanelStore from "../../store/panelStore";
-import useNotificationStore from "../../store/notificationStore";
+import useActivePanel from "../../hooks/useActivePanel";
 import usePanelClose from "../../hooks/usePanelClose";
+import useNotificationStore from "../../store/notificationStore";
+import "./NotificationPanel.css";
 
 const NotificationPanel = () => {
-  const closePanel = usePanelStore((s) => s.closePanel);
+  const { closePanel } = useActivePanel();
   const toasts = useNotificationStore((s) => s.toasts);
   const panelRef = usePanelClose(closePanel, '[data-panel-trigger="notifications"]');
 
@@ -16,12 +16,9 @@ const NotificationPanel = () => {
         {toasts.length > 0 && (
           <button
             className="notif-panel__clear"
-            onClick={() =>
-              toasts.forEach((t) =>
-                useNotificationStore.getState().dismiss(t.id),
-              )
-            }
-            title="Limpiar todo">
+            onClick={() => toasts.forEach((t) => useNotificationStore.getState().dismiss(t.id))}
+            title="Limpiar todo"
+          >
             <IoTrashOutline />
             <span>Limpiar todo</span>
           </button>
@@ -31,21 +28,13 @@ const NotificationPanel = () => {
       <div className="notif-panel__body">
         {toasts.length === 0 ? (
           <div className="notif-panel__empty">
-            <span className="notif-panel__empty-text">
-              No hay notificaciones nuevas
-            </span>
+            <span className="notif-panel__empty-text">No hay notificaciones nuevas</span>
           </div>
         ) : (
           toasts.map((t) => (
-            <div
-              key={t.id}
-              className={`notif-panel__item notif-panel__item--${t.type}`}>
-              {t.title && (
-                <span className="notif-panel__item-title">{t.title}</span>
-              )}
-              {t.message && (
-                <span className="notif-panel__item-msg">{t.message}</span>
-              )}
+            <div key={t.id} className={`notif-panel__item notif-panel__item--${t.type}`}>
+              {t.title && <span className="notif-panel__item-title">{t.title}</span>}
+              {t.message && <span className="notif-panel__item-msg">{t.message}</span>}
             </div>
           ))
         )}

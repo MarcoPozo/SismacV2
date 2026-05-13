@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { IoSearchOutline } from 'react-icons/io5';
-import './SearchPanel.css';
-import appsRegistry from '../../config/appsRegistry';
-import usePanelStore from '../../store/panelStore';
-import useWindowStore from '../../store/windowStore';
-import usePanelClose from '../../hooks/usePanelClose';
+import { useState } from "react";
+import { IoSearchOutline } from "react-icons/io5";
+import appsRegistry from "../../config/appsRegistry";
+import useActivePanel from "../../hooks/useActivePanel";
+import usePanelClose from "../../hooks/usePanelClose";
+import useWindowStore from "../../store/windowStore";
+import "./SearchPanel.css";
 
 const SearchPanel = () => {
-  const closePanel = usePanelStore((s) => s.closePanel);
+  const { closePanel } = useActivePanel();
   const openWindow = useWindowStore((s) => s.openWindow);
   const panelRef = usePanelClose(closePanel);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const results = query.trim()
@@ -28,18 +28,18 @@ const SearchPanel = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'ArrowDown') {
+    if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((i) => Math.min(i + 1, results.length - 1));
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setSelectedIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === 'Enter' && results[selectedIndex]) {
+    } else if (e.key === "Enter" && results[selectedIndex]) {
       handleOpen(results[selectedIndex].id);
     }
   };
 
-  const sectionTitle = query.trim() ? 'Resultados' : 'Aplicaciones';
+  const sectionTitle = query.trim() ? "Resultados" : "Aplicaciones";
 
   return (
     <div className="search-panel" ref={panelRef}>
@@ -63,7 +63,7 @@ const SearchPanel = () => {
             {results.map((app, i) => (
               <button
                 key={app.id}
-                className={`search-panel__result${i === selectedIndex ? ' search-panel__result--selected' : ''}`}
+                className={`search-panel__result${i === selectedIndex ? " search-panel__result--selected" : ""}`}
                 onClick={() => handleOpen(app.id)}
                 onMouseEnter={() => setSelectedIndex(i)}
               >
