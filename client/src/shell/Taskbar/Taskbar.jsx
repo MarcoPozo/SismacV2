@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { IoNotificationsOutline } from "react-icons/io5";
 import appsRegistry from "../../config/appsRegistry";
 import useActivePanel from "../../hooks/useActivePanel";
@@ -11,18 +11,25 @@ import "./Taskbar.css";
 
 const BELL_ICON = <IoNotificationsOutline />;
 
+// Static — never changes at runtime
+const pinnedApps = appsRegistry.filter((a) => a.pinToTaskbar);
+
 const Taskbar = () => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
   const { activePanel, togglePanel } = useActivePanel();
   const windows = useWindowStore((s) => s.windows);
-  const openWindowIds = windows.map((w) => w.id);
 
-  const pinnedApps = appsRegistry.filter((a) => a.pinToTaskbar);
-  const runningUnpinnedApps = appsRegistry.filter(
-    (a) => !a.pinToTaskbar && openWindowIds.includes(a.id)
-  );
+  // O(1) lookup for open window ids
+  const runningUnpinnedApps = useMemo(() => {
+    const openIds = new Set(windows.map((w) => w.id));
+    return appsRegistry.filter((a) => !a.pinToTaskbar && openIds.has(a.id));
+  }, [windows]);
+
+  const handleToggleStart = useCallback(() => togglePanel("start"), [togglePanel]);
+  const handleToggleSearch = useCallback(() => togglePanel("search"), [togglePanel]);
+  const handleToggleNotifs = useCallback(() => togglePanel("notifications"), [togglePanel]);
 
   useEffect(() => {
     const handleUpdateClock = () => {
@@ -54,14 +61,14 @@ const Taskbar = () => {
           <TaskbarIcon
             title="Inicio"
             icon="/images/icons/icon-sismac.png"
-            onAction={() => togglePanel("start")}
+            onAction={handleToggleStart}
             isActive={activePanel === "start"}
             panelTrigger="start"
           />
           <TaskbarIcon
             title="Buscar"
             icon="/images/icons/icon-search.png"
-            onAction={() => togglePanel("search")}
+            onAction={handleToggleSearch}
             isActive={activePanel === "search"}
             panelTrigger="search"
           />
@@ -83,7 +90,7 @@ const Taskbar = () => {
           <TaskbarIcon
             title="Centro de actividades"
             reactIcon={BELL_ICON}
-            onAction={() => togglePanel("notifications")}
+            onAction={handleToggleNotifs}
             isActive={activePanel === "notifications"}
             panelTrigger="notifications"
           />

@@ -1,0 +1,59 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--sm-splash-z);
+  background: var(--sm-bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash--out {
+  animation: splashOut 300ms var(--sm-ease) forwards;
+}
+
+.splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sm-space-4);
+}
+
+/* ring wrapper */
+.splash__ring-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.splash__ring-svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.splash__ring-track {
+  stroke: var(--sm-border-strong);
+}
+
+.splash__ring-fill {
+  stroke: var(--sm-brand);
+  animation: splashRingFill 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+}
+
+.splash__logo {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--sm-splash-logo-size);
+  height: var(--sm-splash-logo-size);
+  object-fit: contain;
+  animation: splashLogoIn 400ms var(--sm-ease) 0.2s both;
+}
+
+.splash__name {
+  font-family: var(--sm-font-title);
+  font-size: var(--sm-text-2xl);
+  color: var(--sm-text);
+  letter-spacing: 0.25em;
+  animation: splashNameIn 400ms var(--sm-ease) 0.5s both;
+}
