@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { IoMdPower } from "react-icons/io";
 import { IoAppsOutline } from "react-icons/io5";
 import "./StartMenu.css";
@@ -7,6 +7,11 @@ import usePanelStore from "../../store/panelStore";
 import useWindowStore from "../../store/windowStore";
 import usePanelClose from "../../hooks/usePanelClose";
 
+const pinnedApps = appsRegistry.filter((a) => a.pinToStartMenu);
+const allApps = [...appsRegistry].sort((a, b) =>
+  a.title.localeCompare(b.title),
+);
+
 const StartMenu = () => {
   const closePanel = usePanelStore((s) => s.closePanel);
   const openWindow = useWindowStore((s) => s.openWindow);
@@ -14,22 +19,23 @@ const StartMenu = () => {
   const panelRef = usePanelClose(closePanel);
   const [showAllApps, setShowAllApps] = useState(false);
 
-  const pinnedApps = appsRegistry.filter((a) => a.pinToStartMenu);
-  const allApps = [...appsRegistry].sort((a, b) =>
-    a.title.localeCompare(b.title),
+  const recentApps = useMemo(
+    () =>
+      [...windows]
+        .sort((a, b) => b.zIndex - a.zIndex)
+        .slice(0, 4)
+        .map((w) => appsRegistry.find((a) => a.id === w.id))
+        .filter(Boolean),
+    [windows],
   );
 
-  // Últimas apps abiertas
-  const recentApps = [...windows]
-    .sort((a, b) => b.zIndex - a.zIndex)
-    .slice(0, 4)
-    .map((w) => appsRegistry.find((a) => a.id === w.id))
-    .filter(Boolean);
-
-  const handleOpenApp = (appId) => {
-    openWindow(appId);
-    closePanel();
-  };
+  const handleOpenApp = useCallback(
+    (appId) => {
+      openWindow(appId);
+      closePanel();
+    },
+    [openWindow, closePanel],
+  );
 
   return (
     <div className="start-menu" ref={panelRef}>

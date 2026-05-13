@@ -1,9 +1,8 @@
-import { create } from 'zustand';
-import appsRegistry from '../config/appsRegistry';
+import { create } from "zustand";
+import appsRegistry from "../config/appsRegistry";
+import { TASKBAR_H } from "../config/constants";
 
 let zCounter = 10;
-
-const TASKBAR_H = 48;
 
 const CASCADE_OFFSET = 32;
 
@@ -15,12 +14,20 @@ const buildWindow = (appId, existingCount) => {
   const availableH = window.innerHeight - TASKBAR_H;
 
   const width = Math.min(app.defaultSize.width, Math.floor(availableW * 0.88));
-  const height = Math.min(app.defaultSize.height, Math.floor(availableH * 0.88));
+  const height = Math.min(
+    app.defaultSize.height,
+    Math.floor(availableH * 0.88),
+  );
 
-  const maxSteps = Math.max(1, Math.floor(Math.min(
-    (availableW - width) / CASCADE_OFFSET,
-    (availableH - height) / CASCADE_OFFSET,
-  )));
+  const maxSteps = Math.max(
+    1,
+    Math.floor(
+      Math.min(
+        (availableW - width) / CASCADE_OFFSET,
+        (availableH - height) / CASCADE_OFFSET,
+      ),
+    ),
+  );
   const step = existingCount % (maxSteps + 1);
 
   const centerX = Math.floor((availableW - width) / 2);
@@ -51,9 +58,9 @@ const buildWindow = (appId, existingCount) => {
 const getSnapRect = (type) => {
   const w = window.innerWidth;
   const h = window.innerHeight - TASKBAR_H;
-  if (type === 'top')   return { x: 0,     y: 0, width: w,     height: h };
-  if (type === 'left')  return { x: 0,     y: 0, width: w / 2, height: h };
-  if (type === 'right') return { x: w / 2, y: 0, width: w / 2, height: h };
+  if (type === "top") return { x: 0, y: 0, width: w, height: h };
+  if (type === "left") return { x: 0, y: 0, width: w / 2, height: h };
+  if (type === "right") return { x: w / 2, y: 0, width: w / 2, height: h };
   return null;
 };
 
@@ -70,7 +77,12 @@ const useWindowStore = create((set, get) => ({
           isFocused: w.id === appId,
           isMinimized: w.id === appId ? false : w.isMinimized,
           isMinimizing: w.id === appId ? false : w.isMinimizing,
-          isMaximized: w.id === appId ? (w.isMinimized ? w.wasMaximized : w.isMaximized) : w.isMaximized,
+          isMaximized:
+            w.id === appId
+              ? w.isMinimized
+                ? w.wasMaximized
+                : w.isMaximized
+              : w.isMaximized,
           wasMaximized: w.id === appId ? false : w.wasMaximized,
           zIndex: w.id === appId ? ++zCounter : w.zIndex,
         })),
@@ -80,17 +92,14 @@ const useWindowStore = create((set, get) => ({
     const win = buildWindow(appId, get().windows.length);
     if (!win) return;
     set((state) => ({
-      windows: [
-        ...state.windows.map((w) => ({ ...w, isFocused: false })),
-        win,
-      ],
+      windows: [...state.windows.map((w) => ({ ...w, isFocused: false })), win],
     }));
   },
 
   closeWindow: (appId) => {
     set((state) => ({
       windows: state.windows.map((w) =>
-        w.id === appId ? { ...w, isClosing: true, isFocused: false } : w
+        w.id === appId ? { ...w, isClosing: true, isFocused: false } : w,
       ),
     }));
   },
@@ -105,8 +114,14 @@ const useWindowStore = create((set, get) => ({
     set((state) => ({
       windows: state.windows.map((w) =>
         w.id === appId
-          ? { ...w, isMinimizing: true, wasMaximized: w.isMaximized, isMaximized: false, isFocused: false }
-          : w
+          ? {
+              ...w,
+              isMinimizing: true,
+              wasMaximized: w.isMaximized,
+              isMaximized: false,
+              isFocused: false,
+            }
+          : w,
       ),
     }));
   },
@@ -114,7 +129,7 @@ const useWindowStore = create((set, get) => ({
   finishMinimize: (appId) => {
     set((state) => ({
       windows: state.windows.map((w) =>
-        w.id === appId ? { ...w, isMinimized: true, isMinimizing: false } : w
+        w.id === appId ? { ...w, isMinimized: true, isMinimizing: false } : w,
       ),
     }));
   },
@@ -122,7 +137,7 @@ const useWindowStore = create((set, get) => ({
   maximizeWindow: (appId) => {
     set((state) => ({
       windows: state.windows.map((w) =>
-        w.id === appId ? { ...w, isMaximized: !w.isMaximized } : w
+        w.id === appId ? { ...w, isMaximized: !w.isMaximized } : w,
       ),
     }));
   },
@@ -134,7 +149,12 @@ const useWindowStore = create((set, get) => ({
         isFocused: w.id === appId,
         isMinimized: w.id === appId ? false : w.isMinimized,
         isMinimizing: w.id === appId ? false : w.isMinimizing,
-        isMaximized: w.id === appId ? (w.isMinimized ? w.wasMaximized : w.isMaximized) : w.isMaximized,
+        isMaximized:
+          w.id === appId
+            ? w.isMinimized
+              ? w.wasMaximized
+              : w.isMaximized
+            : w.isMaximized,
         wasMaximized: w.id === appId ? false : w.wasMaximized,
         zIndex: w.id === appId ? ++zCounter : w.zIndex,
       })),
@@ -144,19 +164,20 @@ const useWindowStore = create((set, get) => ({
   moveWindow: (appId, position) => {
     set((state) => ({
       windows: state.windows.map((w) =>
-        w.id === appId ? { ...w, position } : w
+        w.id === appId ? { ...w, position } : w,
       ),
     }));
   },
 
-  setSnapPreview: (type) => set({ snapPreview: { type, rect: getSnapRect(type) } }),
+  setSnapPreview: (type) =>
+    set({ snapPreview: { type, rect: getSnapRect(type) } }),
   clearSnapPreview: () => set({ snapPreview: null }),
 
   snapWindow: (appId, type) => {
-    if (type === 'top') {
+    if (type === "top") {
       set((state) => ({
         windows: state.windows.map((w) =>
-          w.id === appId ? { ...w, isMaximized: true, isSnapped: false } : w
+          w.id === appId ? { ...w, isMaximized: true, isSnapped: false } : w,
         ),
       }));
       return;
@@ -170,7 +191,7 @@ const useWindowStore = create((set, get) => ({
               snapType: type,
               sizeBeforeSnap: w.isSnapped ? w.sizeBeforeSnap : { ...w.size },
             }
-          : w
+          : w,
       ),
     }));
   },
@@ -178,7 +199,7 @@ const useWindowStore = create((set, get) => ({
   setWindowDragging: (appId, val) => {
     set((state) => ({
       windows: state.windows.map((w) =>
-        w.id === appId ? { ...w, isDragging: val } : w
+        w.id === appId ? { ...w, isDragging: val } : w,
       ),
     }));
   },
@@ -187,8 +208,14 @@ const useWindowStore = create((set, get) => ({
     set((state) => ({
       windows: state.windows.map((w) =>
         w.id === appId
-          ? { ...w, isSnapped: false, snapType: null, size: w.sizeBeforeSnap ?? w.size, sizeBeforeSnap: null }
-          : w
+          ? {
+              ...w,
+              isSnapped: false,
+              snapType: null,
+              size: w.sizeBeforeSnap ?? w.size,
+              sizeBeforeSnap: null,
+            }
+          : w,
       ),
     }));
   },

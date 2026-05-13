@@ -13,8 +13,8 @@
   display: flex;
   align-items: flex-start;
   gap: var(--sm-space-3);
-  min-width: 280px;
-  max-width: 360px;
+  min-width: var(--sm-toast-min-w);
+  max-width: var(--sm-toast-max-w);
   padding: var(--sm-space-3) var(--sm-space-4);
   background: var(--sm-glass-bg-strong);
   border: 1px solid var(--sm-glass-border);
@@ -67,8 +67,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: var(--sm-toast-close-size);
+  height: var(--sm-toast-close-size);
   border-radius: var(--sm-radius-xs);
   color: var(--sm-text-muted);
   font-size: var(--sm-text-md);

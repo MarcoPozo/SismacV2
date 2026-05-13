@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 380px;
+  width: var(--sm-notif-panel-w);
   height: calc(100vh - var(--sm-taskbar-h));
   background: var(--sm-glass-bg-strong);
   border-left: 1px solid var(--sm-glass-border);

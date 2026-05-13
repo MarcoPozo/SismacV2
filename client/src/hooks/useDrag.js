@@ -1,9 +1,9 @@
-import { useRef, useCallback } from 'react';
-import useWindowStore from '../store/windowStore';
+import { useRef, useCallback } from "react";
+import useWindowStore from "../store/windowStore";
+import { TASKBAR_H } from "../config/constants";
 
 const TITLE_VISIBLE_LEFT = 200;
 const TITLE_VISIBLE_RIGHT = 120;
-const TASKBAR_H = 48;
 const TITLEBAR_H = 32;
 const SNAP_THRESHOLD = 8;
 
@@ -28,7 +28,7 @@ const useDrag = (appId) => {
       useWindowStore.getState().setWindowDragging(appId, true);
 
       if (win.isSnapped) {
-        const snapX = win.snapType === 'right' ? window.innerWidth / 2 : 0;
+        const snapX = win.snapType === "right" ? window.innerWidth / 2 : 0;
         const snapW = window.innerWidth / 2;
         pendingUnmaximize.current = {
           ratio: (e.clientX - snapX) / snapW,
@@ -47,8 +47,8 @@ const useDrag = (appId) => {
         startPos.current = { x: win.position.x, y: win.position.y };
       }
 
-      document.querySelectorAll('iframe').forEach((f) => {
-        f.style.pointerEvents = 'none';
+      document.querySelectorAll("iframe").forEach((f) => {
+        f.style.pointerEvents = "none";
       });
 
       const handleMouseMove = (ev) => {
@@ -56,7 +56,9 @@ const useDrag = (appId) => {
 
         if (pendingUnmaximize.current) {
           const { ratio, sizeToRestore, isSnap } = pendingUnmaximize.current;
-          const currentWin = useWindowStore.getState().windows.find((w) => w.id === appId);
+          const currentWin = useWindowStore
+            .getState()
+            .windows.find((w) => w.id === appId);
           if (!currentWin) return;
 
           if (isSnap) {
@@ -81,11 +83,11 @@ const useDrag = (appId) => {
         const { setSnapPreview, clearSnapPreview } = useWindowStore.getState();
 
         if (ev.clientY <= SNAP_THRESHOLD) {
-          setSnapPreview('top');
+          setSnapPreview("top");
         } else if (ev.clientX <= SNAP_THRESHOLD) {
-          setSnapPreview('left');
+          setSnapPreview("left");
         } else if (ev.clientX >= window.innerWidth - SNAP_THRESHOLD) {
-          setSnapPreview('right');
+          setSnapPreview("right");
         } else {
           clearSnapPreview();
         }
@@ -98,14 +100,17 @@ const useDrag = (appId) => {
 
         const newX = Math.max(
           -(winW - TITLE_VISIBLE_LEFT),
-          Math.min(window.innerWidth - TITLE_VISIBLE_RIGHT, startPos.current.x + dx)
+          Math.min(
+            window.innerWidth - TITLE_VISIBLE_RIGHT,
+            startPos.current.x + dx,
+          ),
         );
         const newY = Math.max(
           0,
           Math.min(
             window.innerHeight - TASKBAR_H - TITLEBAR_H,
-            startPos.current.y + dy
-          )
+            startPos.current.y + dy,
+          ),
         );
 
         moveWindow(appId, { x: newX, y: newY });
@@ -116,7 +121,8 @@ const useDrag = (appId) => {
         pendingUnmaximize.current = null;
         useWindowStore.getState().setWindowDragging(appId, false);
 
-        const { snapPreview, snapWindow, clearSnapPreview } = useWindowStore.getState();
+        const { snapPreview, snapWindow, clearSnapPreview } =
+          useWindowStore.getState();
         if (snapPreview) {
           snapWindow(appId, snapPreview.type);
           clearSnapPreview();
@@ -124,17 +130,17 @@ const useDrag = (appId) => {
           useWindowStore.getState().clearSnapPreview();
         }
 
-        document.querySelectorAll('iframe').forEach((f) => {
-          f.style.pointerEvents = 'auto';
+        document.querySelectorAll("iframe").forEach((f) => {
+          f.style.pointerEvents = "auto";
         });
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
       };
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     },
-    [appId, focusWindow, moveWindow, maximizeWindow]
+    [appId, focusWindow, moveWindow, maximizeWindow],
   );
 
   return { handleMouseDown };

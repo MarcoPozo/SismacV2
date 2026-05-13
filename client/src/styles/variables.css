@@ -164,6 +164,37 @@
 
   /* Paneles */
   --sm-start-menu-w: 680px;
+  --sm-notif-panel-w: 380px;
+
+  /* Start Menu — layout interno */
+  --sm-start-pinned-min-h: 148px;
+  --sm-start-label-max-w: 80px;
+  --sm-start-all-max-h: 280px;
+  --sm-start-recent-min-h: 80px;
+
+  /* Búsqueda */
+  --sm-search-bar-h: 44px;
+  --sm-search-results-max-h: 320px;
+
+  /* Tamaños de ícono por contexto */
+  --sm-icon-list: 28px;
+  --sm-icon-menu: 40px;
+
+  /* Settings — componentes internos */
+  --sm-wallpaper-thumb-w: 140px;
+  --sm-wallpaper-thumb-h: 88px;
+  --sm-wallpaper-check-size: 22px;
+  --sm-mode-btn-w: 120px;
+  --sm-accent-swatch-size: 32px;
+  --sm-career-icon-size: 48px;
+  --sm-career-check-size: 18px;
+  --sm-career-name-max-w: 90px;
+  --sm-about-key-w: 100px;
+
+  /* Toast */
+  --sm-toast-min-w: 280px;
+  --sm-toast-max-w: 360px;
+  --sm-toast-close-size: 20px;
 }
 
 /* Light mode */

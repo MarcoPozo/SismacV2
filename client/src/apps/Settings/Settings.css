@@ -113,8 +113,8 @@
 
 .settings__wallpaper-thumb {
   position: relative;
-  width: 140px;
-  height: 88px;
+  width: var(--sm-wallpaper-thumb-w);
+  height: var(--sm-wallpaper-thumb-h);
   border-radius: var(--sm-radius-sm);
   background-size: cover;
   background-position: center;
@@ -137,8 +137,8 @@
   position: absolute;
   bottom: var(--sm-space-1);
   right: var(--sm-space-1);
-  width: 22px;
-  height: 22px;
+  width: var(--sm-wallpaper-check-size);
+  height: var(--sm-wallpaper-check-size);
   border-radius: var(--sm-radius-pill);
   background: var(--sm-brand);
   display: flex;
@@ -160,7 +160,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--sm-space-2);
-  width: 120px;
+  width: var(--sm-mode-btn-w);
   padding: var(--sm-space-5) var(--sm-space-4);
   border-radius: var(--sm-radius-md);
   background: var(--sm-surface-3);
@@ -203,8 +203,8 @@
 }
 
 .settings__accent-swatch {
-  width: 32px;
-  height: 32px;
+  width: var(--sm-accent-swatch-size);
+  height: var(--sm-accent-swatch-size);
   border-radius: var(--sm-radius-pill);
   border: 2px solid transparent;
   transition:
@@ -255,8 +255,8 @@
 }
 
 .settings__career-icon-wrap {
-  width: 48px;
-  height: 48px;
+  width: var(--sm-career-icon-size);
+  height: var(--sm-career-icon-size);
   border-radius: var(--sm-radius-pill);
   display: flex;
   align-items: center;
@@ -270,7 +270,7 @@
   color: var(--sm-text-soft);
   text-align: center;
   line-height: 1.3;
-  max-width: 90px;
+  max-width: var(--sm-career-name-max-w);
 }
 
 .settings__career-item--active .settings__career-name {
@@ -281,14 +281,14 @@
   position: absolute;
   top: var(--sm-space-1);
   right: var(--sm-space-1);
-  width: 18px;
-  height: 18px;
+  width: var(--sm-career-check-size);
+  height: var(--sm-career-check-size);
   border-radius: var(--sm-radius-pill);
   background: var(--career-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: var(--sm-text-xs);
   color: var(--sm-text-invert);
 }
 
@@ -327,7 +327,7 @@
 .settings__about-key {
   font-size: var(--sm-text-sm);
   color: var(--sm-text-muted);
-  width: 100px;
+  width: var(--sm-about-key-w);
   flex-shrink: 0;
 }
 

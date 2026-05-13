@@ -2,14 +2,12 @@ import './TaskbarIcon.css';
 import useWindowStore from '../../store/windowStore';
 
 const TaskbarIcon = ({ appId, title, icon, reactIcon, onAction, isActive, panelTrigger }) => {
-  const windows = useWindowStore((s) => s.windows);
-  const openWindow = useWindowStore((s) => s.openWindow);
-  const focusWindow = useWindowStore((s) => s.focusWindow);
+  const win          = useWindowStore((s) => s.windows.find((w) => w.id === appId) ?? null);
+  const openWindow   = useWindowStore((s) => s.openWindow);
+  const focusWindow  = useWindowStore((s) => s.focusWindow);
   const minimizeWindow = useWindowStore((s) => s.minimizeWindow);
 
   const isPanelMode = !!onAction;
-
-  const win = !isPanelMode ? windows.find((w) => w.id === appId) : null;
   const isOpen = !!win;
   const isMinimized = win?.isMinimized ?? false;
   const isFocused = win?.isFocused ?? false;

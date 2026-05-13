@@ -9,6 +9,22 @@ import "./Window.css";
 import useDrag from "../../hooks/useDrag";
 import useWindowStore from "../../store/windowStore";
 import appsRegistry from "../../config/appsRegistry";
+import { DRAG_Z } from "../../config/constants";
+
+const SNAP_POSITIONS = {
+  left: {
+    top: 0,
+    left: 0,
+    width: "50vw",
+    height: "calc(100vh - var(--sm-taskbar-h))",
+  },
+  right: {
+    top: 0,
+    left: "50vw",
+    width: "50vw",
+    height: "calc(100vh - var(--sm-taskbar-h))",
+  },
+};
 
 const Window = ({ appId }) => {
   const windows = useWindowStore((s) => s.windows);
@@ -39,20 +55,26 @@ const Window = ({ appId }) => {
     isClosing,
   } = win;
 
-  const DRAG_Z = 8950;
   const effectiveZ = isDragging ? DRAG_Z : zIndex;
   const PageComponent = app.component;
 
-  const SNAP_STYLES = {
-    left:  { top: 0, left: 0,       width: '50vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ },
-    right: { top: 0, left: '50vw',  width: '50vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ },
-  };
-
   const style = isMaximized
-    ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - var(--sm-taskbar-h))', zIndex: effectiveZ }
+    ? {
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "calc(100vh - var(--sm-taskbar-h))",
+        zIndex: effectiveZ,
+      }
     : isSnapped && snapType
-    ? SNAP_STYLES[snapType]
-    : { top: position.y, left: position.x, width: size.width, height: size.height, zIndex: effectiveZ };
+      ? { ...SNAP_POSITIONS[snapType], zIndex: effectiveZ }
+      : {
+          top: position.y,
+          left: position.x,
+          width: size.width,
+          height: size.height,
+          zIndex: effectiveZ,
+        };
 
   const windowClass = [
     "window",
