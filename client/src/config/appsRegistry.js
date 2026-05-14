@@ -45,6 +45,52 @@ const appsRegistry = [
     pinToTaskbar: false,
     pinToStartMenu: true,
   },
+
+  // Subaplicaciones del Explorador — no aparecen en escritorio ni menús
+  {
+    id: "quienes-somos",
+    title: "¿Quiénes Somos?",
+    icon: "/images/icons/icon-explorer.png",
+    route: "/quienes-somos",
+    component: lazy(() => import("../apps/QuienesSomos/QuienesSomos.jsx")),
+    defaultSize: { width: 860, height: 560 },
+    showOnDesktop: false,
+    pinToTaskbar: false,
+    pinToStartMenu: false,
+  },
+  {
+    id: "historia-ismac",
+    title: "Historia Ismac",
+    icon: "/images/icons/icon-explorer.png",
+    route: "/historia-ismac",
+    component: lazy(() => import("../apps/HistoriaIsmac/HistoriaIsmac.jsx")),
+    defaultSize: { width: 860, height: 560 },
+    showOnDesktop: false,
+    pinToTaskbar: false,
+    pinToStartMenu: false,
+  },
+  {
+    id: "nosotros-ismac",
+    title: "Nosotros Ismac",
+    icon: "/images/icons/icon-explorer.png",
+    route: "/nosotros-ismac",
+    component: lazy(() => import("../apps/NosotrosIsmac/NosotrosIsmac.jsx")),
+    defaultSize: { width: 860, height: 560 },
+    showOnDesktop: false,
+    pinToTaskbar: false,
+    pinToStartMenu: false,
+  },
+  {
+    id: "ubicacion-ismac",
+    title: "Ubicación Ismac",
+    icon: "/images/icons/icon-explorer.png",
+    route: "/ubicacion-ismac",
+    component: lazy(() => import("../apps/UbicacionIsmac/UbicacionIsmac.jsx")),
+    defaultSize: { width: 860, height: 560 },
+    showOnDesktop: false,
+    pinToTaskbar: false,
+    pinToStartMenu: false,
+  },
 ];
 
 export default appsRegistry;
