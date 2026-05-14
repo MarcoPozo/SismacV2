@@ -70,17 +70,6 @@ const appsRegistry = [
     pinToStartMenu: false,
   },
   {
-    id: "nosotros-ismac",
-    title: "Nosotros Ismac",
-    icon: "/images/icons/icon-nosotros.png",
-    route: "/nosotros-ismac",
-    component: lazy(() => import("../apps/NosotrosIsmac/NosotrosIsmac.jsx")),
-    defaultSize: { width: 860, height: 560 },
-    showOnDesktop: false,
-    pinToTaskbar: false,
-    pinToStartMenu: false,
-  },
-  {
     id: "ubicacion-ismac",
     title: "Ubicación Ismac",
     icon: "/images/icons/icon-ubicacion-ismac.png",

@@ -23,8 +23,8 @@ const EXPLORER_REGISTRY = [
       {
         id: "nosotros-ismac",
         label: "Nosotros Ismac",
-        type: "app",
-        appId: "nosotros-ismac",
+        type: "video",
+        src: "https://player.vimeo.com/video/691163823?h=ead4c35efe&badge=0&autopause=0&player_id=0",
         icon: "/images/icons/icon-nosotros.png",
       },
       {
