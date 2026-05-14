@@ -83,9 +83,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--sm-icon-desktop);
-  height: var(--sm-icon-desktop);
-  font-size: var(--sm-icon-desktop);
+  width: var(--sm-icon-explorer);
+  height: var(--sm-icon-explorer);
+  font-size: var(--sm-icon-explorer);
   color: var(--sm-text-muted);
   transition: color var(--sm-dur) var(--sm-ease);
 }
@@ -95,8 +95,8 @@
 }
 
 .explorer__item-label {
-  font-size: var(--sm-text-2xs);
-  color: var(--sm-text-soft);
+  font-size: var(--sm-text-xs);
+  color: var(--sm-text);
   line-height: 1.35;
   max-width: 90px;
   display: -webkit-box;
