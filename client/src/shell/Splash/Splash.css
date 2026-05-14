@@ -53,7 +53,7 @@
 .splash__name {
   font-family: var(--sm-font-title);
   font-size: var(--sm-text-2xl);
-  color: var(--sm-text);
+  color: var(--sm-text-invert);
   letter-spacing: 0.25em;
   animation: splashNameIn 400ms var(--sm-ease) 0.5s both;
 }
