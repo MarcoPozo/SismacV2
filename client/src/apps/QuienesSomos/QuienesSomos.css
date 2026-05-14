@@ -1,0 +1,199 @@
+.quienes-somos {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--sm-surface);
+}
+
+/* Header institucional */
+
+.quienes-somos__header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-4);
+  padding: var(--sm-space-4) var(--sm-space-6);
+  background: linear-gradient(120deg, var(--sm-surface-3) 0%, var(--sm-surface-2) 100%);
+  border-bottom: 1px solid var(--sm-border);
+  border-left: 3px solid var(--sm-brand);
+  flex-shrink: 0;
+}
+
+/* Rombos decorativos */
+
+.quienes-somos__header-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.quienes-somos__diamond {
+  position: absolute;
+  transform: rotate(45deg);
+  border: 1px solid var(--sm-brand-border);
+}
+
+.quienes-somos__diamond--a {
+  width: 72px;
+  height: 72px;
+  right: 120px;
+  top: -20px;
+  background: var(--sm-brand-bg);
+}
+
+.quienes-somos__diamond--b {
+  width: 40px;
+  height: 40px;
+  right: 60px;
+  bottom: -14px;
+  background: var(--sm-brand-bg);
+}
+
+.quienes-somos__diamond--c {
+  width: 28px;
+  height: 28px;
+  right: 200px;
+  top: 50%;
+  margin-top: -14px;
+  background: transparent;
+  opacity: 0.5;
+}
+
+.quienes-somos__diamond--d {
+  width: 52px;
+  height: 52px;
+  right: 20px;
+  top: 50%;
+  margin-top: -26px;
+  background: transparent;
+  border-color: var(--sm-border-strong);
+}
+
+.quienes-somos__logo {
+  width: var(--sm-app-header-logo);
+  height: var(--sm-app-header-logo);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.quienes-somos__header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.quienes-somos__header-eyebrow {
+  font-size: var(--sm-text-xs);
+  color: var(--sm-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.quienes-somos__header-name {
+  font-family: var(--sm-font-title);
+  font-size: var(--sm-text-2xl);
+  color: var(--sm-text);
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+/* Body */
+
+.quienes-somos__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sm-space-5) var(--sm-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sm-space-4);
+}
+
+/* Cards */
+
+.quienes-somos__card {
+  background: var(--sm-surface-2);
+  border: 1px solid var(--sm-border);
+  border-left-width: 3px;
+  border-radius: var(--sm-radius-md);
+  padding: var(--sm-space-4) var(--sm-space-5);
+}
+
+.quienes-somos__card--mision {
+  border-left-color: var(--sm-warning);
+}
+
+.quienes-somos__card--vision {
+  border-left-color: var(--sm-info);
+}
+
+.quienes-somos__card--valores {
+  border-left-color: var(--sm-success);
+}
+
+.quienes-somos__card-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-2);
+  margin-bottom: var(--sm-space-3);
+}
+
+.quienes-somos__card-icon {
+  font-size: var(--sm-text-xl);
+  flex-shrink: 0;
+}
+
+.quienes-somos__card--mision .quienes-somos__card-icon {
+  color: var(--sm-warning);
+}
+
+.quienes-somos__card--vision .quienes-somos__card-icon {
+  color: var(--sm-info);
+}
+
+.quienes-somos__card--valores .quienes-somos__card-icon {
+  color: var(--sm-success);
+}
+
+.quienes-somos__card-title {
+  font-family: var(--sm-font-title);
+  font-size: var(--sm-text-2xl);
+  color: var(--sm-text);
+  letter-spacing: 0.06em;
+}
+
+.quienes-somos__card-text {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-soft);
+  line-height: 1.75;
+}
+
+/* Valores grid */
+
+.quienes-somos__valores {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--sm-space-2);
+}
+
+.quienes-somos__valor {
+  display: flex;
+  align-items: center;
+  gap: var(--sm-space-2);
+  padding: var(--sm-space-2) var(--sm-space-3);
+  background: var(--sm-surface-3);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--sm-radius-sm);
+}
+
+.quienes-somos__valor-icon {
+  font-size: var(--sm-text-lg);
+  color: var(--sm-success);
+  flex-shrink: 0;
+}
+
+.quienes-somos__valor-label {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text);
+  font-weight: 500;
+}
