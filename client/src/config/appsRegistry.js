@@ -50,7 +50,7 @@ const appsRegistry = [
   {
     id: "quienes-somos",
     title: "¿Quiénes Somos?",
-    icon: "/images/icons/icon-explorer.png",
+    icon: "/images/icons/icon-quienes-somos.png",
     route: "/quienes-somos",
     component: lazy(() => import("../apps/QuienesSomos/QuienesSomos.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -61,7 +61,7 @@ const appsRegistry = [
   {
     id: "historia-ismac",
     title: "Historia Ismac",
-    icon: "/images/icons/icon-explorer.png",
+    icon: "/images/icons/icon-historia-ismac.png",
     route: "/historia-ismac",
     component: lazy(() => import("../apps/HistoriaIsmac/HistoriaIsmac.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -72,7 +72,7 @@ const appsRegistry = [
   {
     id: "nosotros-ismac",
     title: "Nosotros Ismac",
-    icon: "/images/icons/icon-explorer.png",
+    icon: "/images/icons/icon-nosotros.png",
     route: "/nosotros-ismac",
     component: lazy(() => import("../apps/NosotrosIsmac/NosotrosIsmac.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -83,7 +83,7 @@ const appsRegistry = [
   {
     id: "ubicacion-ismac",
     title: "Ubicación Ismac",
-    icon: "/images/icons/icon-explorer.png",
+    icon: "/images/icons/icon-ubicacion-ismac.png",
     route: "/ubicacion-ismac",
     component: lazy(() => import("../apps/UbicacionIsmac/UbicacionIsmac.jsx")),
     defaultSize: { width: 860, height: 560 },

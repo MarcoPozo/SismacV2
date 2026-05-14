@@ -89,7 +89,7 @@ const Explorer = () => {
             {category?.items.length > 0 ? (
               <div className="explorer__grid">
                 {category.items.map((item) => {
-                  const { Icon } = item;
+                  const { Icon, icon } = item;
                   return (
                     <button
                       key={item.id}
@@ -98,7 +98,11 @@ const Explorer = () => {
                       title={item.label}
                     >
                       <span className="explorer__item-icon">
-                        <Icon />
+                        {icon ? (
+                          <img src={icon} alt={item.label} draggable={false} />
+                        ) : (
+                          <Icon />
+                        )}
                       </span>
                       <span className="explorer__item-label">{item.label}</span>
                     </button>
