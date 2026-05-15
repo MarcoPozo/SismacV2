@@ -60,14 +60,14 @@ const Taskbar = () => {
         <div className="taskbar__center">
           <TaskbarIcon
             title="Inicio"
-            icon="/images/icons/icon-sismac.png"
+            icon="/images/icons/icon-sismac.webp"
             onAction={handleToggleStart}
             isActive={activePanel === "start"}
             panelTrigger="start"
           />
           <TaskbarIcon
             title="Buscar"
-            icon="/images/icons/icon-search.png"
+            icon="/images/icons/icon-search.webp"
             onAction={handleToggleSearch}
             isActive={activePanel === "search"}
             panelTrigger="search"

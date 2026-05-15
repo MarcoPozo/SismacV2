@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { IoLocationOutline, IoOpenOutline, IoStarSharp } from "react-icons/io5";
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl, useMap } from "react-leaflet";
 import useSettingsStore from "../../store/settingsStore";
+import AppHeader from "../../ui/AppHeader/AppHeader";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./UbicacionIsmac.css";
@@ -49,26 +50,7 @@ const UbicacionIsmac = () => {
 
   return (
     <div className="ubicacion-ismac">
-      <header className="ubicacion-ismac__header">
-        <div className="ubicacion-ismac__header-deco" aria-hidden="true">
-          <span className="ubicacion-ismac__diamond ubicacion-ismac__diamond--a" />
-          <span className="ubicacion-ismac__diamond ubicacion-ismac__diamond--b" />
-          <span className="ubicacion-ismac__diamond ubicacion-ismac__diamond--c" />
-          <span className="ubicacion-ismac__diamond ubicacion-ismac__diamond--d" />
-        </div>
-        <img
-          className="ubicacion-ismac__logo"
-          src="/images/icons/icon-ismac.png"
-          alt="Ismac"
-          draggable={false}
-        />
-        <div className="ubicacion-ismac__header-info">
-          <span className="ubicacion-ismac__header-eyebrow">
-            Instituto Superior Tecnológico Universitario
-          </span>
-          <span className="ubicacion-ismac__header-name">Ubicación</span>
-        </div>
-      </header>
+      <AppHeader title="Ubicación" />
 
       <div className="ubicacion-ismac__map-wrap">
         <MapContainer

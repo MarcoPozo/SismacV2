@@ -4,7 +4,7 @@ const appsRegistry = [
   {
     id: "settings",
     title: "Configuración",
-    icon: "/images/icons/icon-settings.png",
+    icon: "/images/icons/icon-settings.webp",
     route: "/configuracion",
     component: lazy(() => import("../apps/Settings/Settings.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -15,7 +15,7 @@ const appsRegistry = [
   {
     id: "explorer",
     title: "Explorador",
-    icon: "/images/icons/icon-explorer.png",
+    icon: "/images/icons/icon-explorer.webp",
     route: "/explorador",
     component: lazy(() => import("../apps/Explorer/Explorer.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -26,7 +26,7 @@ const appsRegistry = [
   {
     id: "calendar",
     title: "Calendario",
-    icon: "/images/icons/icon-calendar.png",
+    icon: "/images/icons/icon-calendar.webp",
     route: "/calendario",
     component: lazy(() => import("../apps/Calendar/Calendar.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -37,7 +37,7 @@ const appsRegistry = [
   {
     id: "photos",
     title: "Fotos",
-    icon: "/images/icons/icon-photos.png",
+    icon: "/images/icons/icon-photos.webp",
     route: "/fotos",
     component: lazy(() => import("../apps/Photos/Photos.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -50,7 +50,7 @@ const appsRegistry = [
   {
     id: "quienes-somos",
     title: "¿Quiénes Somos?",
-    icon: "/images/icons/icon-quienes-somos.png",
+    icon: "/images/icons/icon-quienes-somos.webp",
     route: "/quienes-somos",
     component: lazy(() => import("../apps/QuienesSomos/QuienesSomos.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -61,7 +61,7 @@ const appsRegistry = [
   {
     id: "historia-ismac",
     title: "Historia Ismac",
-    icon: "/images/icons/icon-historia-ismac.png",
+    icon: "/images/icons/icon-historia-ismac.webp",
     route: "/historia-ismac",
     component: lazy(() => import("../apps/HistoriaIsmac/HistoriaIsmac.jsx")),
     defaultSize: { width: 860, height: 560 },
@@ -72,7 +72,7 @@ const appsRegistry = [
   {
     id: "ubicacion-ismac",
     title: "Ubicación Ismac",
-    icon: "/images/icons/icon-ubicacion-ismac.png",
+    icon: "/images/icons/icon-ubicacion-ismac.webp",
     route: "/ubicacion-ismac",
     component: lazy(() => import("../apps/UbicacionIsmac/UbicacionIsmac.jsx")),
     defaultSize: { width: 860, height: 560 },

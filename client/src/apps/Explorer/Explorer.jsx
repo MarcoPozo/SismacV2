@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IoArrowBackOutline } from "react-icons/io5";
 import EXPLORER_REGISTRY from "../../config/explorerRegistry";
 import useWindowStore from "../../store/windowStore";
@@ -38,30 +38,33 @@ const Explorer = () => {
 
   const category = EXPLORER_REGISTRY.find((c) => c.id === activeCategory);
 
-  const handleCategoryClick = (categoryId) => {
+  const handleCategoryClick = useCallback((categoryId) => {
     setActiveCategory(categoryId);
     setActivePdf(null);
     setActiveVideo(null);
-  };
+  }, []);
 
-  const handleItemClick = (item) => {
-    if (item.type === "app") {
-      openWindow(item.appId);
-    } else if (item.type === "link") {
-      window.open(item.href, "_blank", "noopener,noreferrer");
-    } else if (item.type === "pdf") {
-      setActivePdf(item);
-      setActiveVideo(null);
-    } else if (item.type === "video") {
-      setActiveVideo(item);
-      setActivePdf(null);
-    }
-  };
+  const handleItemClick = useCallback(
+    (item) => {
+      if (item.type === "app") {
+        openWindow(item.appId);
+      } else if (item.type === "link") {
+        window.open(item.href, "_blank", "noopener,noreferrer");
+      } else if (item.type === "pdf") {
+        setActivePdf(item);
+        setActiveVideo(null);
+      } else if (item.type === "video") {
+        setActiveVideo(item);
+        setActivePdf(null);
+      }
+    },
+    [openWindow]
+  );
 
-  const handleCloseViewer = () => {
+  const handleCloseViewer = useCallback(() => {
     setActivePdf(null);
     setActiveVideo(null);
-  };
+  }, []);
 
   const showViewer = activePdf || activeVideo;
 
@@ -98,11 +101,7 @@ const Explorer = () => {
                       title={item.label}
                     >
                       <span className="explorer__item-icon">
-                        {icon ? (
-                          <img src={icon} alt={item.label} draggable={false} />
-                        ) : (
-                          <Icon />
-                        )}
+                        {icon ? <img src={icon} alt={item.label} draggable={false} /> : <Icon />}
                       </span>
                       <span className="explorer__item-label">{item.label}</span>
                     </button>

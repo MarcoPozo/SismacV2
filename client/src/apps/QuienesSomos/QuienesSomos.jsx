@@ -9,6 +9,7 @@ import {
   IoStarOutline,
   IoTrophyOutline,
 } from "react-icons/io5";
+import AppHeader from "../../ui/AppHeader/AppHeader";
 import "./QuienesSomos.css";
 
 const VALORES = [
@@ -22,26 +23,7 @@ const VALORES = [
 
 const QuienesSomos = () => (
   <div className="quienes-somos">
-    <header className="quienes-somos__header">
-      <div className="quienes-somos__header-deco" aria-hidden="true">
-        <span className="quienes-somos__diamond quienes-somos__diamond--a" />
-        <span className="quienes-somos__diamond quienes-somos__diamond--b" />
-        <span className="quienes-somos__diamond quienes-somos__diamond--c" />
-        <span className="quienes-somos__diamond quienes-somos__diamond--d" />
-      </div>
-      <img
-        className="quienes-somos__logo"
-        src="/images/icons/icon-ismac.png"
-        alt="Ismac"
-        draggable={false}
-      />
-      <div className="quienes-somos__header-info">
-        <span className="quienes-somos__header-eyebrow">
-          Instituto Superior Tecnológico Universitario
-        </span>
-        <span className="quienes-somos__header-name">ISMAC</span>
-      </div>
-    </header>
+    <AppHeader title="¿Quiénes Somos?" />
 
     <div className="quienes-somos__body">
       <div className="quienes-somos__card quienes-somos__card--mision">

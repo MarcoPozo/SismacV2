@@ -1,28 +1,10 @@
 import { IoBookOutline } from "react-icons/io5";
+import AppHeader from "../../ui/AppHeader/AppHeader";
 import "./HistoriaIsmac.css";
 
 const HistoriaIsmac = () => (
   <div className="historia-ismac">
-    <header className="historia-ismac__header">
-      <div className="historia-ismac__header-deco" aria-hidden="true">
-        <span className="historia-ismac__diamond historia-ismac__diamond--a" />
-        <span className="historia-ismac__diamond historia-ismac__diamond--b" />
-        <span className="historia-ismac__diamond historia-ismac__diamond--c" />
-        <span className="historia-ismac__diamond historia-ismac__diamond--d" />
-      </div>
-      <img
-        className="historia-ismac__logo"
-        src="/images/icons/icon-ismac.png"
-        alt="Ismac"
-        draggable={false}
-      />
-      <div className="historia-ismac__header-info">
-        <span className="historia-ismac__header-eyebrow">
-          Instituto Superior Tecnológico Universitario
-        </span>
-        <span className="historia-ismac__header-name">ISMAC</span>
-      </div>
-    </header>
+    <AppHeader title="Nuestra Historia" />
 
     <div className="historia-ismac__body">
       <div className="historia-ismac__video-col">
