@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoArrowBackOutline, IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { IoArrowBackOutline, IoChevronBackOutline, IoChevronForwardOutline, IoDocumentTextOutline } from "react-icons/io5";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -59,10 +59,11 @@ const PdfViewer = ({ item, onClose }) => {
 
       <div className="pdf-viewer__body">
         {loadError ? (
-          <div className="pdf-viewer__error">
-            <span>No se pudo cargar el documento.</span>
-            <span className="pdf-viewer__error-hint">
-              Verifica que el archivo exista en <code>/public/documents/</code>
+          <div className="pdf-viewer__unavailable">
+            <IoDocumentTextOutline className="pdf-viewer__unavailable-icon" />
+            <span className="pdf-viewer__unavailable-title">Documento próximamente disponible</span>
+            <span className="pdf-viewer__unavailable-sub">
+              Este documento aún no ha sido publicado.
             </span>
           </div>
         ) : (

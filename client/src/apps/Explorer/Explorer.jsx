@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { IoArrowBackOutline } from "react-icons/io5";
+import { IoArrowBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 import EXPLORER_REGISTRY from "../../config/explorerRegistry";
 import useWindowStore from "../../store/windowStore";
 import PdfViewer from "../../ui/PdfViewer/PdfViewer";
@@ -30,10 +30,50 @@ const VideoPlayer = ({ item, onClose }) => (
   </div>
 );
 
+const GroupViewer = ({ group, category, onClose, onFileClick }) => (
+  <div className="explorer__group-view">
+    <div className="explorer__media-toolbar">
+      <button className="explorer__media-back" onClick={onClose}>
+        <IoArrowBackOutline />
+        <span>Volver</span>
+      </button>
+      <div className="explorer__group-breadcrumb">
+        <span className="explorer__group-breadcrumb-parent">{category.label}</span>
+        <IoChevronForwardOutline className="explorer__group-breadcrumb-sep" />
+        <span className="explorer__group-breadcrumb-current">{group.label}</span>
+      </div>
+    </div>
+    <div className="explorer__group-body">
+      {group.files.length > 0 ? (
+        <div className="explorer__grid">
+          {group.files.map((file) => (
+            <button
+              key={file.id}
+              className="explorer__item"
+              onClick={() => onFileClick(file)}
+              title={file.label}
+            >
+              <span className="explorer__item-icon">
+                <img src="/images/icons/icon-pdf.webp" alt={file.label} draggable={false} />
+              </span>
+              <span className="explorer__item-label">{file.label}</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="explorer__empty">
+          <span className="explorer__empty-text">Sin contenido por el momento</span>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 const Explorer = () => {
   const [activeCategory, setActiveCategory] = useState(EXPLORER_REGISTRY[0].id);
   const [activePdf, setActivePdf] = useState(null);
   const [activeVideo, setActiveVideo] = useState(null);
+  const [activeGroup, setActiveGroup] = useState(null);
   const openWindow = useWindowStore((s) => s.openWindow);
 
   const category = EXPLORER_REGISTRY.find((c) => c.id === activeCategory);
@@ -42,6 +82,7 @@ const Explorer = () => {
     setActiveCategory(categoryId);
     setActivePdf(null);
     setActiveVideo(null);
+    setActiveGroup(null);
   }, []);
 
   const handleItemClick = useCallback(
@@ -56,12 +97,22 @@ const Explorer = () => {
       } else if (item.type === "video") {
         setActiveVideo(item);
         setActivePdf(null);
+      } else if (item.type === "group") {
+        setActiveGroup(item);
+        setActivePdf(null);
+        setActiveVideo(null);
       }
     },
     [openWindow]
   );
 
   const handleCloseViewer = useCallback(() => {
+    setActivePdf(null);
+    setActiveVideo(null);
+  }, []);
+
+  const handleCloseGroup = useCallback(() => {
+    setActiveGroup(null);
     setActivePdf(null);
     setActiveVideo(null);
   }, []);
@@ -87,7 +138,16 @@ const Explorer = () => {
 
         {activeVideo && <VideoPlayer item={activeVideo} onClose={handleCloseViewer} />}
 
-        {!showViewer && (
+        {activeGroup && !showViewer && (
+          <GroupViewer
+            group={activeGroup}
+            category={category}
+            onClose={handleCloseGroup}
+            onFileClick={(file) => setActivePdf(file)}
+          />
+        )}
+
+        {!showViewer && !activeGroup && (
           <>
             {category?.items.length > 0 ? (
               <div className="explorer__grid">

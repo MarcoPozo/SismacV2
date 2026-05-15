@@ -96,27 +96,31 @@
   font-size: var(--sm-text-sm);
 }
 
-.pdf-viewer__error {
+.pdf-viewer__unavailable {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sm-space-2);
-  margin-top: var(--sm-space-10);
-  color: var(--sm-text-muted);
-  font-size: var(--sm-text-sm);
+  gap: var(--sm-space-3);
+  margin: auto;
+  padding: var(--sm-space-8);
   text-align: center;
 }
 
-.pdf-viewer__error-hint {
-  font-size: var(--sm-text-xs);
-  color: var(--sm-text-muted);
+.pdf-viewer__unavailable-icon {
+  font-size: 52px;
+  color: var(--sm-warning);
+  opacity: 0.7;
 }
 
-.pdf-viewer__error-hint code {
-  background: var(--sm-surface-3);
-  padding: 2px 6px;
-  border-radius: var(--sm-radius-xs);
-  font-family: monospace;
+.pdf-viewer__unavailable-title {
+  font-size: var(--sm-text-md);
+  font-weight: 600;
+  color: var(--sm-text-soft);
+}
+
+.pdf-viewer__unavailable-sub {
+  font-size: var(--sm-text-sm);
+  color: var(--sm-text-muted);
 }
 
 /* Canvas generado por react-pdf */
